@@ -3,13 +3,21 @@
 {% block title %}Admin{% endblock %}
 
 {% block body %}
-  <div class="row">
+  <div class="row col-12 mt-3">
+    <div>
+      <h2>Table Utilisateur</h2>
+      <a href="" class="btn btn-primary my-3">Ajouter un Utilisateur</a>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Email</th>
           <th scope="col">Prenom</th>
           <th scope="col">Nom</th>
+          <th scope="col">Anniversaire</th>
+          <th scope="col">Licence</th>
+          <th scope="col">Telephone</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -18,8 +26,12 @@
 
           <tr>
             <th scope="row">{{user.id}}</th>
+            <td>{{user.email}}</td>
             <td>{{user.firstName}}</td>
-            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.birthday | date("d/m/Y")}}</td>
+            <td>{{user.licence}}</td>
+            <td>{{user.phone}}</td>
             <td>
               <a href="" class="btn btn-primary">
                 <i class="fas fa-edit"></i>
@@ -34,23 +46,33 @@
     </table>
   </div>
 
-  <div class="row">
+  <div class="row  col-12 mt-3">
+    <div>
+      <h2>Table Entrainement</h2>
+      <a href="" class="btn btn-primary my-3">Ajouter un Entrainement</a>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Prenom</th>
-          <th scope="col">Nom</th>
+          <th scope="col">Date</th>
+          <th scope="col">Places</th>
+          <th scope="col">Info</th>
+          <th scope="col">Date ouverture inscription</th>
+          <th scope="col">Adulte</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        {% for user in users %}
+        {% for training in trainings %}
 
           <tr>
-            <th scope="row">{{user.id}}</th>
-            <td>{{user.firstName}}</td>
-            <td>{{user.firstName}}</td>
+            <th scope="row">{{training.id}}</th>
+            <td>{{training.trainingDate}}</td>
+            <td>{{training.slot}}</td>
+            <td>{{training.info}}</td>
+            <td>{{training.openingRegistrationDate}}</td>
+            <td>{{training.adult}}</td>
             <td>
               <a href="" class="btn btn-primary">
                 <i class="fas fa-edit"></i>
