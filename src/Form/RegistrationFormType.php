@@ -21,6 +21,9 @@ class RegistrationFormType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('birthday')
+            ->add('birthday', null, [
+                'widget' => 'single_text',
+            ])
             ->add('licence')
             ->add('phone')
             ->add('plainPassword', PasswordType::class, [
