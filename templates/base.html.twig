@@ -21,7 +21,9 @@
   </head>
   <body>
 
-    {% block header %}{% endblock %}
+    {% block header %}
+      {% include "component/header.html.twig" %}
+    {% endblock %}
 
     {% block navbar %}
         
