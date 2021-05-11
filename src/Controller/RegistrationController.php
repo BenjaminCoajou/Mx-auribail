@@ -38,6 +38,11 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
+            
+            //TEMPORAIRE : redirige apres la registration
+            return $this->redirectToRoute('home');
+
+
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
