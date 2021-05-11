@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p class="alert alert-danger">Êtes-vous sur de vouloir supprimer l'utilisateur ?</p>
+    {{ form(form)}} - <a href="{{ path('admin') }}">Annuler</a>
+{% endblock %}
