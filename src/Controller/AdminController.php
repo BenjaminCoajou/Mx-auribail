@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Training;
 use App\Entity\User;
+use App\Form\TrainingType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,7 +61,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            
+
             $em->remove($user);
             $em->flush();
 
@@ -68,5 +69,33 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/user/delete.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/admin/trainig/create", name="admin_training_create")
+     */
+    public function create(Request $request, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(TrainingType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $training = new Training();
+            $training->setTrainingDate($form->get('trainingDate')->getData());
+            $training->setSlot($form->get('slot')->getData());
+            $training->setInfo($form->get('info')->getData());
+            $training->setOpeningRegistrationDate($form->get('openingRegistrationDate')->getData());
+            $training->setAdult($form->get('adult')->getData());
+
+            $em->persist($training);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/training/create.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
