@@ -1,20 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Admin{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Prenom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+          <tr>
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.firstName}}</td>
+            <td>{{user.firstName}}</td>
+            <td>
+              <a href="" class="btn btn-primary">
+                <i class="fas fa-edit"></i>
+              </a>
+              <a href="" class="btn btn-danger">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/Mx-auribail/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/Mx-auribail/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Prenom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+
+          <tr>
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.firstName}}</td>
+            <td>{{user.firstName}}</td>
+            <td>
+              <a href="" class="btn btn-primary">
+                <i class="fas fa-edit"></i>
+              </a>
+              <a href="" class="btn btn-danger">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
 {% endblock %}
