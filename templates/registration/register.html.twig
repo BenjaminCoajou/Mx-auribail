@@ -7,29 +7,28 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <div class="container">
+        <div class="row my-5">
+            <h1 class="mx-auto">Inscription</h1>
+        </div>
+        <div class="row mb-5">
+            <div class="mx-auto col-4">
+                {{ form_start(registrationForm) }}
+                    {# {{ form_row(registrationForm.email) }} #}
+                    {{ form_widget(registrationForm.email, { 'attr': {'placeholder': 'Email','class':'my-3'} }) }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de passe','class':'my-3'} }) }}
+                    {{ form_widget(registrationForm.lastName,{'attr': {'placeholder': 'Nom','class':'my-3'} }) }}
+                    {{ form_widget(registrationForm.firstName,{'attr': {'placeholder': 'Prénom','class':'my-3'} }) }}       
+                    {{ form_row(registrationForm.birthday,{
+                        label : 'Date de naissance'
+                    }) }}    
+                    {{ form_widget(registrationForm.licence,{'attr': {'placeholder': 'Numero de licence','class':'my-3'} }) }}   
+                    {{ form_widget(registrationForm.phone,{'attr': {'placeholder': 'Téléphone','class':'my-3'} }) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.lastName,{
-            label : 'Nom'
-        }) }}
-        {{ form_row(registrationForm.firstName,{
-            label : 'Prénom'
-        }) }}       
-        {{ form_row(registrationForm.birthday,{
-            label : 'Date de naissance'
-        }) }}    
-        {{ form_row(registrationForm.licence,{
-            label : 'Licence'
-        }) }}   
-        {{ form_row(registrationForm.phone,{
-            label : 'Téléphone'
-        }) }}
+                    <button type="submit" class="btn btn-primary">Register</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
 {% endblock %}
