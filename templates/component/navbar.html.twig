@@ -8,7 +8,7 @@
                     <div class="navbar" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="navbar-brand" href="#">MxTrail Auribail</a>
+                                <a class="navbar-brand" href="#home">MxTrail Auribail</a>
                             <li class="nav-item">
                                 <a class="nav-link" href="#stage">Prochain Stage</a>
                             </li>
@@ -22,8 +22,11 @@
                                 <a class="nav-link" href="#actu">Actualitées</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="modal"
-                                    data-target="#connexionModal">Connexion</a>
+                               {% if app.user %}
+                                    <a class="nav-link" href={{ path('app_logout') }}>Déconnexion </a>
+                                {% else %}
+                                    <a class="nav-link" href={{ path('app_login') }}>Connexion </a>
+                                {% endif %} 
                             </li>
                         </ul>
                     </div>
