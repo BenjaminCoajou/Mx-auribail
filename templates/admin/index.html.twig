@@ -67,10 +67,10 @@
 
           <tr>
             <th scope="row">{{training.id}}</th>
-            <td>{{training.trainingDate}}</td>
+            <td>{{training.trainingDate | date("d/m/Y h:i")}}</td>
             <td>{{training.slot}}</td>
             <td>{{training.info}}</td>
-            <td>{{training.openingRegistrationDate}}</td>
+            <td>{{training.openingRegistrationDate | date("d/m/Y h:i")}}</td>
             <td>{{training.adult}}</td>
             <td>
               <a href="" class="btn btn-primary">
