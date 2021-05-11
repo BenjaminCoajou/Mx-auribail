@@ -4,10 +4,9 @@
 
 {% block body %}
   <div class="row col-12 mt-3">
-    <div>
+
       <h2>Table Utilisateur</h2>
-      <a href="" class="btn btn-primary my-3">Ajouter un Utilisateur</a>
-    </div>
+
     <table class="table table-striped">
       <thead>
         <tr>
@@ -33,7 +32,7 @@
             <td>{{user.licence}}</td>
             <td>{{user.phone}}</td>
             <td>
-              <a href="" class="btn btn-primary">
+              <a href="{{ path('admin_user_edit', {'user': user.id}) }}" class="btn btn-primary">
                 <i class="fas fa-edit"></i>
               </a>
               <a href="" class="btn btn-danger">
