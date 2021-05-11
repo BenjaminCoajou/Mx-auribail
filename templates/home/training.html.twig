@@ -1,15 +1,41 @@
-<p> Entrainement Adulte : </p>
-    <ul>
-        <li><p> Nombre de place disponible : {{ trainingAdulte.slot }} </p></li>
-        <li><p> Date de l'entrainement : {{ trainingAdulte.trainingDate | date('d/m/Y') }} </p></li>
-        <li><p> Les informations importantes : {{ trainingAdulte.info }} </p></li>
-        <li><p> Date d'ouverture de l'inscription : {{ trainingAdulte.openingRegistrationDate | date('d/m/Y') }} </p></li>
-    </ul>
+<div class="container trainingCards">
+    <div class="row">
+        <div class="card mr-5" style="width: 20rem;">
+            <img class="card-img-top" src="assets/img/moto1.jpg" width="286" height="180" alt="image moto 1">
+            <div class="card-body">
+                <h5 class="card-title">Entrainement Adulte</h5>
+                <ul>
+                    <li><p class="card-text"> Place disponible : {{ trainingAdulte.slot }} </p></li>
+                    <li><p class="card-text"> Date : {{ trainingAdulte.trainingDate | date('d/m/Y') }} </p></li>
+                    <li><p class="card-text"> Les informations importantes : {{ trainingAdulte.info }} </p></li>
+                    <li><p class="card-text"> Date d'ouverture de l'inscription : {{ trainingAdulte.openingRegistrationDate | date('d/m/Y') }} </p></li>
+                </ul>
 
-    <p> Entrainement Enfant : </p>
-    <ul>
-        <li><p> Nombre de place disponible : {{ trainingEnfant.slot }} </p></li>
-        <li><p> Date de l'entrainement : {{ trainingEnfant.trainingDate | date('d/m/Y') }} </p></li>
-        <li><p> Les informations importantes : {{ trainingEnfant.info }} </p></li>
-        <li><p> Date d'ouverture de l'inscription : {{ trainingEnfant.openingRegistrationDate | date('d/m/Y') }} </p></li>
-    </ul>
+                <div class="progress">
+                    <div class="progress-bar w-25" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary">Inscription</a>
+    </div>
+
+    <div class="row">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="assets/img/moto2.jpg" width="286" height="180" alt="image moto 2">
+            <div class="card-body">
+                <h5 class="card-title">Entrainement Enfant</h5>
+                <ul>
+                    <li><p class="card-text"> Place disponible : {{ trainingEnfant.slot }} </p></li>
+                    <li><p class="card-text"> Date : {{ trainingEnfant.trainingDate | date('d/m/Y') }} </p></li>
+                    <li><p class="card-text"> Les informations importantes : {{ trainingEnfant.info }} </p></li>
+                    <li><p class="card-text"> Date d'ouverture de l'inscription : {{ trainingEnfant.openingRegistrationDate | date('d/m/Y') }} </p></li>            
+                </ul>
+
+                <div class="progress">
+                    <div class="progress-bar w-25" role="progressbar" aria-valuenow={{ trainingAdulte.slot }} aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary">Inscription</a>
+    </div>
+</div>
