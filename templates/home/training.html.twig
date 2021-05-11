@@ -1,0 +1,15 @@
+<p> Entrainement Adulte : </p>
+    <ul>
+        <li><p> Nombre de place disponible : {{ trainingAdulte.slot }} </p></li>
+        <li><p> Date de l'entrainement : {{ trainingAdulte.trainingDate | date('d/m/Y') }} </p></li>
+        <li><p> Les informations importantes : {{ trainingAdulte.info }} </p></li>
+        <li><p> Date d'ouverture de l'inscription : {{ trainingAdulte.openingRegistrationDate | date('d/m/Y') }} </p></li>
+    </ul>
+
+    <p> Entrainement Enfant : </p>
+    <ul>
+        <li><p> Nombre de place disponible : {{ trainingEnfant.slot }} </p></li>
+        <li><p> Date de l'entrainement : {{ trainingEnfant.trainingDate | date('d/m/Y') }} </p></li>
+        <li><p> Les informations importantes : {{ trainingEnfant.info }} </p></li>
+        <li><p> Date d'ouverture de l'inscription : {{ trainingEnfant.openingRegistrationDate | date('d/m/Y') }} </p></li>
+    </ul>
