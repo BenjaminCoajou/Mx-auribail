@@ -1,0 +1,44 @@
+<section class="container trainingCards">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="assets/img/moto1.jpg" alt="image moto 1">
+                <div class="card-body">
+                    <h5 class="card-title">Entrainement Adulte</h5>
+                    <ul>
+                        <li><p class="card-text"> Place disponible : {{ trainingAdulte.slot }} </p></li>
+                        <li><p class="card-text"> Date : {{ trainingAdulte.trainingDate | date('d/m/Y') }} </p></li>
+                        <li><p class="card-text"> Les informations importantes : {{ trainingAdulte.info }} </p></li>
+                        <li><p class="card-text"> Date d'ouverture de l'inscription : {{ trainingAdulte.openingRegistrationDate | date('d/m/Y') }} </p></li>
+                    </ul>
+
+                    <div class="progress">
+                        <div class="progress-bar w-25" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-primary">Inscription</a>
+            </div>
+        </div>
+        <div class="col-6">        
+            <div class="card" >
+                <img class="card-img-top img-fluid" src="assets/img/moto2.jpg" alt="image moto 2">
+                <div class="card-body">
+                    <h5 class="card-title">Entrainement Enfant</h5>
+                    <ul>
+                        <li><p class="card-text"> Place disponible : {{ trainingEnfant.slot }} </p></li>
+                        <li><p class="card-text"> Date : {{ trainingEnfant.trainingDate | date('d/m/Y') }} </p></li>
+                        <li><p class="card-text"> Les informations importantes : {{ trainingEnfant.info }} </p></li>
+                        <li><p class="card-text"> Date d'ouverture de l'inscription : {{ trainingEnfant.openingRegistrationDate | date('d/m/Y') }} </p></li>            
+                    </ul>
+
+                    <div class="progress">
+                        <div class="progress-bar w-25" role="progressbar" aria-valuenow={{ trainingAdulte.slot }} aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-primary">Inscription</a>
+            </div>
+        </div>
+    </div>
+</section>
