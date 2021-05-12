@@ -27,4 +27,21 @@ class MailerController extends AbstractController
         return $this->redirectToRoute('home');
         
     }
+
+    /**
+     * @Route("/email/cancel/{user}", name="email_cancel")
+     */
+    public function sendCancelEmail(MailerInterface $mailer, User $user): Response
+    {
+        $email = (new Email())
+        ->from('mx-auribail@gmail.com')
+        ->to($user->getEmail())
+        ->subject('Entrainement Annulé !')
+        ->text("Nous sommes désolé, le prochain entrainement est annulé.");
+
+        $mailer->send($email);
+        
+        return $this->redirectToRoute('home');
+        
+    }
 }

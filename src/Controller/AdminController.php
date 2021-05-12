@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Service\Mailer;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
@@ -123,7 +124,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/training/delete/{training}",name="admin_training_delete")
      */
-    public function deleteTraining(Request $request, Training $training, EntityManagerInterface $em)
+    public function deleteTraining(Mailer $mailer,Request $request, Training $training, EntityManagerInterface $em)
     {
         $builder = $this->createFormBuilder();
         $builder->add('Valider', SubmitType::class);
@@ -134,14 +135,27 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted()) {
 
+
+            $listUserTrainings = $training->getUserTrainings();
+            foreach($listUserTrainings as $userTraining)
+            {
+                $user = $userTraining->getUser();
+                $subjet = "Test Mail Delete";
+                $msg = "Test msg Delete / Annulation !";
+                $mailer->sendEmail($user,$subjet,$msg);
+            }
+
+
             $em->remove($training);
             $em->flush();
+
 
             return $this->redirectToRoute('admin');
         }
 
         return $this->render('admin/training/delete.html.twig', ['form' => $form->createView()]);
     }
+
 
     /**
      * @Route("/admin/training/list",name="admin_training_list")
@@ -154,4 +168,5 @@ class AdminController extends AbstractController
 
         return $this->render('admin/training/list.html.twig', compact('list'));
     }
+
 }
