@@ -14,7 +14,7 @@
                         </ul>
 
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 5%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                            <div class="progress-bar" role="progressbar" style="width: {{ placeAdult / trainingAdulte.slot * 100  }}%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
                             </div>
                         </div>
                     {% else %}
@@ -22,7 +22,7 @@
                     {% endif %}
                     
                 </div>
-                {% if trainingAdulte and app.user and "now" | date('Y') - app.user.birthday | date('Y') >= 18 %}
+                {% if trainingAdulte and app.user and "now" | date('Y') - app.user.birthday | date('Y') >= 18 and trainingAdulte.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y') %}
                 <a href="{{ path('home_inscription', {'training': trainingAdulte.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
                     {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
@@ -43,16 +43,16 @@
                         </ul>
 
                         <div class="progress">
-                            <div class="progress-bar w-25" role="progressbar" aria-valuenow={{ trainingAdulte.slot }} aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                            <div class="progress-bar" role="progressbar" style="width: {{ placeEnfant / trainingEnfant.slot * 100  }}%"aria-valuenow={{ trainingAdulte.slot }} aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
                             </div>
                         </div>
                     {% else %}
                         <p>Pas d'entrainement de prévu pour le moment.</p>
                     {% endif %}
                 </div>
-                {% if trainingEnfant and app.user and "now" | date('Y') - app.user.birthday | date('Y') < 18 %}
+                {% if trainingEnfant and app.user and "now" | date('Y') - app.user.birthday | date('Y') < 18 and trainingEnfant.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y') %}
                                 
-                    <a href="#" class="btn btn-primary">Inscription</a>
+                    <a href="{{ path('home_inscription', {'training': trainingEnfant.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
                  {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
                 {% endif %}                        

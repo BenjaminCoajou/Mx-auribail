@@ -33,7 +33,19 @@ class HomeController extends AbstractController
             'trainingDate' => 'desc'
         ]);
 
-        return $this->render('home/index.html.twig', compact('trainingAdulte', 'trainingEnfant'));
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        $userTrainingAdult = $repoUserTraining->findBy([
+            'training' => $trainingAdulte
+        ]);
+
+        $userTrainingEnfant = $repoUserTraining->findBy([
+            'training' => $trainingEnfant
+        ]);
+
+        $placeAdult = count($userTrainingAdult);
+        $placeEnfant = count($userTrainingEnfant);
+
+        return $this->render('home/index.html.twig', compact('trainingAdulte', 'trainingEnfant', 'placeAdult', 'placeEnfant'));
     }
 
     /**
