@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Training;
+use App\Entity\User;
+use App\Entity\UserTraining;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,5 +34,22 @@ class HomeController extends AbstractController
         ]);
 
         return $this->render('home/index.html.twig', compact('trainingAdulte', 'trainingEnfant'));
+    }
+
+    /**
+     * @Route("/inscription/{user}-{training}", name="home_inscription")
+     */
+    public function inscription(EntityManagerInterface $em, Training $training, User $user)
+    {
+          $userTraining = new UserTraining;
+          $userTraining->setTraining($training);
+          $userTraining->setUser($user);
+          $userTraining->setDateRegistration(new DateTime('NOW'));
+
+          $em->persist($userTraining);
+          $em->flush();
+
+          return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
+          
     }
 }
