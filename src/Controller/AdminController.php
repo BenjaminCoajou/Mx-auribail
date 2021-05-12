@@ -74,7 +74,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/trainig/create", name="admin_training_create")
      */
-    public function create(Request $request, EntityManagerInterface $em)
+    public function createTraining(Request $request, EntityManagerInterface $em)
     {
         $form = $this->createForm(TrainingType::class);
 
@@ -97,5 +97,48 @@ class AdminController extends AbstractController
         return $this->render('admin/training/create.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/training/edit/{training}",name="admin_training_edit")
+     */
+    public function editTraining(Request $request, Training $training, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(TrainingType::class, $training);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($training);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/training/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/training/delete/{training}",name="admin_training_delete")
+     */
+    public function deleteTraining(Request $request, Training $training, EntityManagerInterface $em)
+    {
+        $builder = $this->createFormBuilder();
+        $builder->add('Valider', SubmitType::class);
+
+        $form = $builder->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+
+            $em->remove($training);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('admin/training/delete.html.twig', ['form' => $form->createView()]);
     }
 }

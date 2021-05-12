@@ -1,0 +1,25 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="login-modal" aria-labelledby="login-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Connexion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mt-3 mb-4">
+                <form method="post" action="{{ path('app_login')}}">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Connexion</button>
+                </form>
+                <a href={{ path('app_register') }}>S'inscire</a>
+            </div>
+        </div>
+    </div>
+</div>

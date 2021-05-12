@@ -16,7 +16,9 @@
 
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" autocomplete="email" required autofocus>
+
+    <input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control mb-3" autocomplete="current-password" required>
 
@@ -38,6 +40,8 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
+
     <a href={{ path('app_register') }} class="ml-3">S'inscrire</a>
+
 </form>
 {% endblock %}

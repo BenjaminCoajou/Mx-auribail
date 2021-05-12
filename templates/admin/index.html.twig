@@ -73,10 +73,10 @@
             <td>{{training.openingRegistrationDate | date("d/m/Y h:i")}}</td>
             <td>{{training.adult}}</td>
             <td>
-              <a href="" class="btn btn-primary">
+              <a href="{{ path('admin_training_edit', {'training': training.id}) }}" class="btn btn-primary">
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="" class="btn btn-danger">
+              <a href="{{ path('admin_training_delete', {'training': training.id}) }}" class="btn btn-danger">
                 <i class="fas fa-trash"></i>
               </a>
             </td>
