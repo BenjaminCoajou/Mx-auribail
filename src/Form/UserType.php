@@ -36,7 +36,9 @@ class UserType extends AbstractType
             ])
             ->add('firstName')
             ->add('lastName')
-            ->add('birthday')
+            ->add('birthday', null, [
+                'years' => range(1950, date('Y'))
+            ])
             ->add('licence')
             ->add('phone')
             ->add('edit', SubmitType::class);
