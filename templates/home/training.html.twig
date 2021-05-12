@@ -14,7 +14,7 @@
                         </ul>
 
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 6.6%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                            <div class="progress-bar" role="progressbar" style="width: {{ placeAdult / trainingAdulte.slot * 100  }}%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
                             </div>
                         </div>
                     {% else %}
@@ -43,7 +43,7 @@
                         </ul>
 
                         <div class="progress">
-                            <div class="progress-bar w-25" role="progressbar" aria-valuenow={{ trainingAdulte.slot }} aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                            <div class="progress-bar" role="progressbar" style="width: {{ placeEnfant / trainingEnfant.slot * 100  }}%"aria-valuenow={{ trainingAdulte.slot }} aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
                             </div>
                         </div>
                     {% else %}
