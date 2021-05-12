@@ -17,7 +17,9 @@ class TrainingType extends AbstractType
             ->add('slot')
             ->add('info')
             ->add('openingRegistrationDate')
-            ->add('adult')
+            ->add('adult', null, [
+                'attr' => array('checked' => 'checked')
+            ])
             ->add('Ajouter', SubmitType::class)
         ;
     }
