@@ -5,7 +5,7 @@
                 <img class="card-img-top img-fluid" src="assets/img/moto1.jpg" alt="image moto 1">
                 <div class="card-body">
                     <h5 class="card-title">Entrainement Adulte</h5>
-                    {% if trainingAdulte %}
+                    {% if trainingAdulte%}
                         <ul>
                             <li><p class="card-text"> Place disponible : {{ trainingAdulte.slot }} </p></li>
                             <li><p class="card-text"> Date : {{ trainingAdulte.trainingDate | date('d/m/Y') }} </p></li>
@@ -30,7 +30,7 @@
                 <img class="card-img-top img-fluid" src="assets/img/moto2.jpg" alt="image moto 2">
                 <div class="card-body">
                     <h5 class="card-title">Entrainement Enfant</h5>
-                    {% if trainingEnfant %}
+                    {% if trainingEnfant%}
                         <ul>
                             <li><p class="card-text"> Place disponible : {{ trainingEnfant.slot }} </p></li>
                             <li><p class="card-text"> Date : {{ trainingEnfant.trainingDate | date('d/m/Y') }} </p></li>
