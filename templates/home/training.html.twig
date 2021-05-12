@@ -22,7 +22,7 @@
                     {% endif %}
                     
                 </div>
-                {% if trainingAdulte and app.user %}
+                {% if trainingAdulte and app.user and "now" | date('Y') - app.user.birthday | date('Y') >= 18 %}
                 <a href="{{ path('home_inscription', {'training': trainingAdulte.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
                     {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
@@ -50,9 +50,13 @@
                         <p>Pas d'entrainement de prévu pour le moment.</p>
                     {% endif %}
                 </div>
-                             
-                <a href="#" class="btn btn-primary">Inscription</a>
-               
+                {% if trainingEnfant and app.user and "now" | date('Y') - app.user.birthday | date('Y') < 18 %}
+                                
+                    <a href="#" class="btn btn-primary">Inscription</a>
+                 {% else %}
+                    <a href="#" class="btn btn-primary disabled">Inscription</a>
+                {% endif %}                        
+    
                
             </div>
         </div>
