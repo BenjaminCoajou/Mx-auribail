@@ -25,7 +25,10 @@ class UserTraining
 
     /**
      * @ORM\ManyToOne(targetEntity=Training::class, inversedBy="userTrainings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(
+     *      nullable=false,
+     *      onDelete="CASCADE"
+     * )
      */
     private $training;
 
