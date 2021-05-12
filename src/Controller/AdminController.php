@@ -156,6 +156,7 @@ class AdminController extends AbstractController
         return $this->render('admin/training/delete.html.twig', ['form' => $form->createView()]);
     }
 
+
     /**
      * @Route("/admin/training/list",name="admin_training_list")
      */
