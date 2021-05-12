@@ -48,7 +48,7 @@
   <div class="row  col-12 mt-3">
     <div>
       <h2>Table Entrainement</h2>
-      <a href="" class="btn btn-primary my-3">Ajouter un Entrainement</a>
+      <a href="{{ path('admin_training_create') }}" class="btn btn-primary my-3">Ajouter un Entrainement</a>
     </div>
     <table class="table table-striped">
       <thead>
@@ -67,16 +67,16 @@
 
           <tr>
             <th scope="row">{{training.id}}</th>
-            <td>{{training.trainingDate}}</td>
+            <td>{{training.trainingDate | date("d/m/Y h:i")}}</td>
             <td>{{training.slot}}</td>
             <td>{{training.info}}</td>
-            <td>{{training.openingRegistrationDate}}</td>
+            <td>{{training.openingRegistrationDate | date("d/m/Y h:i")}}</td>
             <td>{{training.adult}}</td>
             <td>
-              <a href="" class="btn btn-primary">
+              <a href="{{ path('admin_training_edit', {'training': training.id}) }}" class="btn btn-primary">
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="" class="btn btn-danger">
+              <a href="{{ path('admin_training_delete', {'training': training.id}) }}" class="btn btn-danger">
                 <i class="fas fa-trash"></i>
               </a>
             </td>
