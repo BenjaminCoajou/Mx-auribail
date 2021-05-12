@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Training;
 use App\Entity\User;
+use App\Entity\UserTraining;
 use App\Form\TrainingType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -140,5 +141,17 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/training/delete.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/admin/training/list",name="admin_training_list")
+     */
+    public function listTrainings(EntityManagerInterface $em)
+    {
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        
+        $list = $repoUserTraining->findAll();
+
+        return $this->render('admin/training/list.html.twig', compact('list'));
     }
 }
