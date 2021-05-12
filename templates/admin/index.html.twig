@@ -61,7 +61,7 @@
           <th scope="col">Places</th>
           <th scope="col">Info</th>
           <th scope="col">Date ouverture inscription</th>
-          <th scope="col">Adulte</th>
+          <th scope="col">Catégorie</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -74,7 +74,11 @@
             <td>{{training.slot}}</td>
             <td>{{training.info}}</td>
             <td>{{training.openingRegistrationDate | date("d/m/Y h:i")}}</td>
-            <td>{{training.adult}}</td>
+            {% if training.adult == 1 %}
+            <td>adulte</td>
+            {% else %}
+            <td>enfant</td>              
+            {% endif %}
             <td>
               <a href="{{ path('admin_training_edit', {'training': training.id}) }}" class="btn btn-primary">
                 <i class="fas fa-edit"></i>
