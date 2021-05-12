@@ -26,6 +26,7 @@
                     {{ form_widget(registrationForm.phone,{'attr': {'placeholder': 'Téléphone (optionnel)','class':'my-3'} }) }}
 
                     <button type="submit" class="btn btn-primary">S'inscrire</button>
+                    <a class="btn btn-success" href='' data-toggle="modal" data-target="#login-modal">Connexion</a>
                     <a href={{ path('home') }} class="btn btn-danger">Retour</a>
                 {{ form_end(registrationForm) }}
             </div>
