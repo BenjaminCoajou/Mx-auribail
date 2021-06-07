@@ -25,6 +25,7 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 target: home
+            access_denied_handler: App\Security\AccessDeniedHandler
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

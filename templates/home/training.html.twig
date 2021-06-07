@@ -22,7 +22,7 @@
                     {% endif %}
                     
                 </div>
-                {% if trainingAdulte and app.user and "now" | date('Y') - app.user.birthday | date('Y') >= 18 and trainingAdulte.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y') %}
+                {% if trainingAdulte and app.user and "now" | date('Y') - app.user.birthday | date('Y') >= 18 and trainingAdulte.openingRegistrationDate | date('d/m/Y') < "now" | date('d/m/Y') %}
                 <a href="{{ path('home_inscription', {'training': trainingAdulte.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
                     {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
@@ -50,7 +50,7 @@
                         <p>Pas d'entrainement de prévu pour le moment.</p>
                     {% endif %}
                 </div>
-                {% if trainingEnfant and app.user and "now" | date('Y') - app.user.birthday | date('Y') < 18 and trainingEnfant.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y') %}
+                {% if trainingEnfant and app.user and "now" | date('Y') - app.user.birthday | date('Y') < 18 and trainingEnfant.openingRegistrationDate | date('d/m/Y') < "now" | date('d/m/Y') %}
                                 
                     <a href="{{ path('home_inscription', {'training': trainingEnfant.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
                  {% else %}
