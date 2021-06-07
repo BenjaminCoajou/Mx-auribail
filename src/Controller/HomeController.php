@@ -33,7 +33,6 @@ class HomeController extends AbstractController
         $usertrainingChild = $repoUserTraining->findBy([
             'training' => $trainingChild
         ]);
-
         $placeAdult = count($userTrainingAdult);
         $placeEnfant = count($usertrainingChild);
 
@@ -45,15 +44,24 @@ class HomeController extends AbstractController
      */
     public function inscription(EntityManagerInterface $em, Training $training, User $user)
     {
-          $userTraining = new UserTraining;
-          $userTraining->setTraining($training);
-          $userTraining->setUser($user);
-          $userTraining->setDateRegistration(new DateTime('NOW'));
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        $userTraining = $repoUserTraining->findBy(
+            ['user' => $user,
+            'training' => $training
+            ]
+        );
+        if(empty($userTraining))
+        {
+            $userTraining = new UserTraining;
+            $userTraining->setTraining($training);
+            $userTraining->setUser($user);
+            $userTraining->setDateRegistration(new DateTime('NOW'));
 
-          $em->persist($userTraining);
-          $em->flush();
+            $em->persist($userTraining);
+            $em->flush();
+        }
 
-          return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
+       return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
           
     }
 }
