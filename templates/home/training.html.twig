@@ -22,7 +22,7 @@
                     {% endif %}
                     
                 </div>
-                {% if app.user.id in listIdAdult %}
+                {% if app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}
                     <a href="{{ path('home_unsub', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
                 {% elseif trainingAdult 
                 and app.user 
@@ -58,7 +58,9 @@
                         <p>Pas d'entrainement de prévu pour le moment.</p>
                     {% endif %}
                 </div>
-                {% if trainingChild 
+                {% if app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
+                    <a href="{{ path('home_unsub', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
+                {% elseif trainingChild 
                 and app.user 
                 and "now" | date('Y') - app.user.birthday | date('Y') < 18 
                 and trainingChild.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y') 
@@ -67,10 +69,7 @@
                 {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
                 {% endif %}                        
-    
-{% if 12 in listIdAdult %}
-<p>oui !</p>
-{% endif %}                        
+                           
 
 
                

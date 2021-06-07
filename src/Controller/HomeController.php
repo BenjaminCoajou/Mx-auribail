@@ -91,23 +91,13 @@ class HomeController extends AbstractController
     public function unsubscription(EntityManagerInterface $em, Training $training, User $user)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
-        $userTraining = $repoUserTraining->findBy(
+        $userTraining = $repoUserTraining->findOneBy(
             ['user' => $user,
             'training' => $training
             ]
         );
-
-        //check if the user is already register for the training
-        if(empty($userTraining))
-        {
-            $userTraining = new UserTraining;
-            $userTraining->setTraining($training);
-            $userTraining->setUser($user);
-            $userTraining->setDateRegistration(new DateTime('NOW'));
-
-            $em->persist($userTraining);
-            $em->flush();
-        }
+        $em->remove($userTraining);
+        $em->flush();
 
        return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
           
