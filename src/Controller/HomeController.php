@@ -36,6 +36,10 @@ class HomeController extends AbstractController
         $placeAdult = count($userTrainingAdult);
         $placeEnfant = count($usertrainingChild);
 
+
+        $p = $trainingAdult->getUserTrainings();
+        dd($p->toArray());
+
         return $this->render('home/index.html.twig', compact('trainingAdult', 'trainingChild', 'placeAdult', 'placeEnfant'));
     }
 
@@ -50,6 +54,8 @@ class HomeController extends AbstractController
             'training' => $training
             ]
         );
+
+        //check if the user is already register for the training
         if(empty($userTraining))
         {
             $userTraining = new UserTraining;
