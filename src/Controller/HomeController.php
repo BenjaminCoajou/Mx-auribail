@@ -47,29 +47,32 @@ class HomeController extends AbstractController
             'dateRegistration' => 'desc'
         ]);
 
+        // si un utilisateur est connecté
         if ($user) {
-
+            // je récupère son id et son mail
             $userId = $user->getId();
             $userEmail = $user->getEmail();
+            // je cherche si il est inscrit a un entrenement
             $training = $repoUserTraining->findOneBy([
                 'user' => $userId
             ]);
-            if($training){
+            
+            if ($training) {
+                //je cherche la list de tous les utilisteurs de cet entrenement
                 $list = $repoUserTraining->findAll([
                     'training' => $training->getId()
                 ]);
-                
-            }
-            if ($training) {
+                // je cherche le nombre de place de l'entrenement
                 $currentTraining = $training->getTraining();
                 $slot = $currentTraining->getSlot();
+                // je cherche la position de mon utilisateur dans la liste
                 for ($i = 0; $i < count($list); $i++) {
                     
                     if ($list[$i]->getUser()->getEmail() == $userEmail) {
                         $userPlace = $i + 1;
                     }
                 }
-
+                
                 if($userPlace < $slot) {
                     $nameList = "principale";
                     
