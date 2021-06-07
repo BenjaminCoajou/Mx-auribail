@@ -22,16 +22,21 @@
                     {% endif %}
                     
                 </div>
-                {% if trainingAdult 
+                {% if app.user.id in listIdAdult %}
+                    <a href="{{ path('home_unsub', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
+                {% elseif trainingAdult 
                 and app.user 
                 and "now" | date('Y') - app.user.birthday | date('Y') >= 18 
-                and trainingAdult.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y')  %}
+                and trainingAdult.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y')
+                %}
                     <a href="{{ path('home_inscription', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
                 {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
                 {% endif %}
             </div>
         </div>
+
+
         <div class="col-6">        
             <div class="card" >
                 <img class="card-img-top img-fluid" src="assets/img/moto2.jpg" alt="image moto 2">
@@ -57,13 +62,17 @@
                 and app.user 
                 and "now" | date('Y') - app.user.birthday | date('Y') < 18 
                 and trainingChild.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y') 
-                %}
-                                
+                %}            
                     <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
                 {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
                 {% endif %}                        
     
+{% if 12 in listIdAdult %}
+<p>oui !</p>
+{% endif %}                        
+
+
                
             </div>
         </div>

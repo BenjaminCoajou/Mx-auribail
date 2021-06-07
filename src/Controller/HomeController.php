@@ -24,6 +24,22 @@ class HomeController extends AbstractController
 
         $trainingAdult = $repoTraining->findNextTraining('1');
         $trainingChild = $repoTraining->findNextTraining('0');
+        
+
+        $repoUserTraining = $em->getRepository(USerTraining::class);
+        $adults = $repoUserTraining->findby(['training'=>$trainingAdult]);
+        $childs = $repoUserTraining->findby(['training'=>$trainingChild]);
+
+        $listIdAdult = [];
+        foreach($adults as $adult)
+        {
+            $listIdAdult[] = $adult->getUser()->getId();
+        }
+        $listIdChild = [];
+        foreach($childs as $child)
+        {
+            $listIdChild[] = $child->getUser()->getId();
+        }
 
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $userTrainingAdult = $repoUserTraining->findBy([
@@ -37,16 +53,42 @@ class HomeController extends AbstractController
         $placeEnfant = count($usertrainingChild);
 
 
-        $p = $trainingAdult->getUserTrainings();
-        dd($p->toArray());
-
-        return $this->render('home/index.html.twig', compact('trainingAdult', 'trainingChild', 'placeAdult', 'placeEnfant'));
+        return $this->render('home/index.html.twig', compact('trainingAdult', 'trainingChild', 'placeAdult', 'placeEnfant','listIdAdult','listIdChild'));
     }
 
     /**
      * @Route("/inscription/{user}-{training}", name="home_inscription")
      */
     public function inscription(EntityManagerInterface $em, Training $training, User $user)
+    {
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        $userTraining = $repoUserTraining->findBy(
+            ['user' => $user,
+            'training' => $training
+            ]
+        );
+
+        //check if the user is already register for the training
+        if(empty($userTraining))
+        {
+            $userTraining = new UserTraining;
+            $userTraining->setTraining($training);
+            $userTraining->setUser($user);
+            $userTraining->setDateRegistration(new DateTime('NOW'));
+
+            $em->persist($userTraining);
+            $em->flush();
+        }
+
+       return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
+          
+    }
+
+
+    /**
+     * @Route("/unsub/{user}-{training}", name="home_unsub")
+     */
+    public function unsubscription(EntityManagerInterface $em, Training $training, User $user)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $userTraining = $repoUserTraining->findBy(
