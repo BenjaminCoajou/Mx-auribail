@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="container">
+  <h2 class="my-3"> Edition de mes informations personnelles </h2>
+    {{form(form)}}
+    <a href="{{ path('user', {'id' : app.user.id}) }}" class="btn btn-danger">Retour</a>
+    </div>
+  {% endblock %}
