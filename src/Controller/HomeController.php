@@ -54,9 +54,12 @@ class HomeController extends AbstractController
             $training = $repoUserTraining->findOneBy([
                 'user' => $userId
             ]);
-            $list = $repoUserTraining->findAll([
-                'training' => $training->getId()
-            ]);
+            if($training){
+                $list = $repoUserTraining->findAll([
+                    'training' => $training->getId()
+                ]);
+                
+            }
             if ($training) {
                 $currentTraining = $training->getTraining();
                 $slot = $currentTraining->getSlot();
@@ -73,15 +76,17 @@ class HomeController extends AbstractController
                 }
                 else {
                     $nameList ="d'attente";
+                    $userPlace -= $slot;
                 }
                 
             } else {
-                $nameList = "";
+                $nameList = false;
+                $userPlace = false;
             }
         } else {
 
-            $nameList = "";
-            $userPlace = "";
+            $nameList = false;
+            $userPlace = false;
         }
 
 
