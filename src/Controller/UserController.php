@@ -36,11 +36,14 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user');
+            return $this->redirectToRoute('user', [
+                'id' => $user->getId()
+            ]);
         }
 
         return $this->render('user/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 }
