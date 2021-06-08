@@ -4,40 +4,32 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container d-flex flex-column align-items-center justify-content-center">
   <h2 class="my-3"> Informations personnelles </h2>
-  <div class="row col-12 mt-3 ml-2">
-      <a class="btn btn-primary my-3" href="{{ path('home') }}"> Accueil </a>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Email</th>
-            <th scope="col">Prenom</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Anniversaire</th>
-            <th scope="col">Licence</th>
-            <th scope="col">Telephone</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <th scope="row">{{user.id}}</th>
-              <td>{{user.email}}</td>
-              <td>{{user.firstName}}</td>
-              <td>{{user.lastName}}</td>
-              <td>{{user.birthday | date("d/m/Y")}}</td>
-              <td>{{user.licence}}</td>
-              <td>{{user.phone}}</td>
-              <td>
-                <a href="{{ path('user_edit', {'user': user.id}) }}" class="btn btn-primary">
-                  <i class="fas fa-edit"></i>
-                </a>
-              </td>
-            </tr>
-        </tbody>
-      </table>
+  <a class="btn btn-primary my-3" href="{{ path('home') }}"> Accueil </a>
+  <div class="row col-6 mt-3">
+      <div class="card text-white bg-dark mb-3" style="width: 100%">
+        <div class="card-header" style="font-size:2rem ">Mes informations</div>
+        <div class="card-body">
+
+          <h5 class="card-title"> Adresse e-mail </h5>
+          <p> {{user.email}} </p>
+          <h5 class="card-title"> Prénom </h5>
+          <p> {{user.firstName}} </p>
+          <h5 class="card-title"> Nom </h5>
+          <p> {{user.lastName}} </p>
+          <h5 class="card-title"> Anniversaire </h5>
+          <p> {{user.birthday | date("d/m/Y")}} </p>
+          <h5 class="card-title"> Numéro de license </h5>
+          <p> {{user.licence}} </p>
+          <h5 class="card-title"> Numéro de téléphone </h5>
+          <p> {{user.phone}} </p>
+        
+          <a href="{{ path('user_edit', {'user': user.id}) }}" class="btn btn-primary">
+            <i class="fas fa-edit"></i>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
