@@ -51,56 +51,59 @@ class HomeController extends AbstractController
         $usertrainingChild = $repoUserTraining->findBy([
             'training' => $trainingChild
         ]);
-
+        
+        //Initialiser les variables à renvoyer dans la vue
+        $count = 1;
+        $age = null;
+        $nameList = false;
+        $userPlace = false;
         // si un utilisateur est connecté
         if ($user) {
-            // je récupère son id et son mail
-            $userId = $user->getId();
-            $userEmail = $user->getEmail();
-            // je cherche si il est inscrit a un entrenement
-            $training = $repoUserTraining->findOneBy([
-                'user' => $userId
-            ]);
-            
-            if ($training) {
-                //je cherche la list de tous les utilisteurs de cet entrenement
-                $list = $repoUserTraining->findAll([
-                    'training' => $training->getId()
-                ]);
-                // je cherche le nombre de place de l'entrenement
-                $currentTraining = $training->getTraining();
-                $slot = $currentTraining->getSlot();
-                // je cherche la position de mon utilisateur dans la liste
-                for ($i = 0; $i < count($list); $i++) {
-                    
-                    if ($list[$i]->getUser()->getEmail() == $userEmail) {
-                        $userPlace = $i + 1;
+            $age = $user->getBirthday()->diff(new \DateTime())->y;
+
+            if($age < 18)
+            {
+                $training = $trainingChild;
+            }else{
+                $training = $trainingAdult;
+            }
+
+            if($training){
+                $users =$repoUserTraining->findBy([
+                    'training'=> $training,
+                ],
+                [
+                    'dateRegistration'=> 'ASC'
+                ]
+                );
+                foreach($users as $u)
+                { 
+                    if($user->getId() !== $u->getUser()->getId())
+                    {
+                        $count++;    
+                    }
+                    else{
+                        break;
                     }
                 }
-                
-                if($userPlace < $slot) {
-                    $nameList = "principale";
-                    
+
+                $slot = $training->getSlot();
+                if($count <= $slot) {
+                    $nameList = "principale";                
                 }
                 else {
                     $nameList ="d'attente";
-                    $userPlace -= $slot;
+                    $count = $count - $slot;
                 }
-                
-            } else {
-                $nameList = false;
-                $userPlace = false;
+                $userPlace = $count;
             }
-        } else {
+        } 
 
-            $nameList = false;
-            $userPlace = false;
-        }
 
         $placeAdult = count($userTrainingAdult);
         $placeEnfant = count($usertrainingChild);
 
-        return $this->render('home/index.html.twig', compact('trainingAdult', 'trainingChild', 'placeAdult', 'placeEnfant','listIdAdult','listIdChild','nameList', 'userPlace'));
+        return $this->render('home/index.html.twig', compact('trainingAdult', 'trainingChild', 'placeAdult', 'placeEnfant','listIdAdult','listIdChild','nameList', 'userPlace','age'));
     }
 
     /**

@@ -23,7 +23,7 @@
                             <a href="{{ path('home_unsub', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
                         {% elseif trainingAdult 
                         and app.user 
-                        and "now" | date('Y') - app.user.birthday | date('Y') >= 18 
+                        and age >= 18 
                         and date(trainingAdult.openingRegistrationDate) <= date('now')
                         %}
                             <a href="{{ path('home_inscription', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
@@ -58,7 +58,7 @@
                             <a href="{{ path('home_unsub', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
                         {% elseif trainingChild 
                         and app.user 
-                        and "now" | date('Y') - app.user.birthday | date('Y') < 18 
+                        and age < 18 
                         and date(trainingChild.openingRegistrationDate) <= date('now')
                         %}
                             <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
