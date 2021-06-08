@@ -4,40 +4,41 @@
 
 {% block body %}
 
-<h2 class="my-5"> Informations personnelles </h2>
-
-<div class="row col-12 mt-3 ml-2">
-    <a class="btn btn-danger my-5" href="{{ path('home') }}"> Accueil </a>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Email</th>
-          <th scope="col">Prenom</th>
-          <th scope="col">Nom</th>
-          <th scope="col">Anniversaire</th>
-          <th scope="col">Licence</th>
-          <th scope="col">Telephone</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
+<div class="container">
+  <h2 class="my-3"> Informations personnelles </h2>
+  <div class="row col-12 mt-3 ml-2">
+      <a class="btn btn-primary my-3" href="{{ path('home') }}"> Accueil </a>
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <th scope="row">{{user.id}}</th>
-            <td>{{user.email}}</td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.birthday | date("d/m/Y")}}</td>
-            <td>{{user.licence}}</td>
-            <td>{{user.phone}}</td>
-            <td>
-              <a href="{{ path('user_edit', {'user': user.id}) }}" class="btn btn-primary">
-                <i class="fas fa-edit"></i>
-              </a>
-            </td>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Anniversaire</th>
+            <th scope="col">Licence</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Actions</th>
           </tr>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+            <tr>
+              <th scope="row">{{user.id}}</th>
+              <td>{{user.email}}</td>
+              <td>{{user.firstName}}</td>
+              <td>{{user.lastName}}</td>
+              <td>{{user.birthday | date("d/m/Y")}}</td>
+              <td>{{user.licence}}</td>
+              <td>{{user.phone}}</td>
+              <td>
+                <a href="{{ path('user_edit', {'user': user.id}) }}" class="btn btn-primary">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 {% endblock %}

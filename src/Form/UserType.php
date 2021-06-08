@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -33,15 +34,23 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+                'label' => 'Mot de passe'
             ])
-            ->add('firstName')
-            ->add('lastName')
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom'
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom'
+            ])
             ->add('birthday', null, [
-                'years' => range(1950, date('Y'))
+                'years' => range(1950, date('Y')),
+                'label' => 'Anniversaire'
             ])
             ->add('licence')
-            ->add('phone')
-            ->add('edit', SubmitType::class);
+            ->add('phone', TextType::class, [
+                'label' => 'Téléphone'
+            ])
+            ->add('Envoyer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
