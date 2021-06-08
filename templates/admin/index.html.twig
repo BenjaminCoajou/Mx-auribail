@@ -4,93 +4,96 @@
 
 {% block body %}
 
-  <a class="d-flex justify-content-end mr-3 mt-3" href="{{ path('admin_training_list') }}">Liste Utilisateurs inscrits</a>
 
-  <div class="row col-12 mt-3 ml-2">
-
-      <h2>Table Utilisateur</h2>
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Email</th>
-          <th scope="col">Prenom</th>
-          <th scope="col">Nom</th>
-          <th scope="col">Anniversaire</th>
-          <th scope="col">Licence</th>
-          <th scope="col">Telephone</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in users %}
-
+  <div class="container">
+    <h1 class="my-3"> Admin </h1>    
+    <div class="row col-12 mt-3 ml-2">
+      <div>
+        <h2>Utilisateur</h2>
+        <a class="btn btn-primary my-3" href="{{ path('admin_training_list') }}">Liste des utilisateurs inscrits</a>
+      </div>
+      <table class="table table-striped">
+        <thead class="thead-dark">
           <tr>
-            <th scope="row">{{user.id}}</th>
-            <td>{{user.email}}</td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.birthday | date("d/m/Y")}}</td>
-            <td>{{user.licence}}</td>
-            <td>{{user.phone}}</td>
-            <td>
-              <a href="{{ path('admin_user_edit', {'user': user.id}) }}" class="btn btn-primary">
-                <i class="fas fa-edit"></i>
-              </a>
-              <a href="{{ path('admin_user_delete', {'user': user.id}) }}" class="btn btn-danger">
-                <i class="fas fa-trash"></i>
-              </a>
-            </td>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Anniversaire</th>
+            <th scope="col">Licence</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Actions</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          {% for user in users %}
 
-  <div class="row  col-12 mt-3 ml-2">
-    <div>
-      <h2>Table Entrainement</h2>
-      <a href="{{ path('admin_training_create') }}" class="btn btn-primary my-3">Ajouter un Entrainement</a>
+            <tr>
+              <th scope="row">{{user.id}}</th>
+              <td>{{user.email}}</td>
+              <td>{{user.firstName}}</td>
+              <td>{{user.lastName}}</td>
+              <td>{{user.birthday | date("d/m/Y")}}</td>
+              <td>{{user.licence}}</td>
+              <td>{{user.phone}}</td>
+              <td>
+                <a href="{{ path('admin_user_edit', {'user': user.id}) }}" class="btn btn-primary">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a href="{{ path('admin_user_delete', {'user': user.id}) }}" class="btn btn-danger">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Date</th>
-          <th scope="col">Places</th>
-          <th scope="col">Info</th>
-          <th scope="col">Date ouverture inscription</th>
-          <th scope="col">Catégorie</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for training in trainings %}
 
+    <div class="row  col-12 mt-3 ml-2">
+      <div>
+        <h2>Entrainement</h2>
+        <a href="{{ path('admin_training_create') }}" class="btn btn-primary my-3">Ajouter un Entrainement</a>
+      </div>
+      <table class="table table-striped">
+        <thead class="thead-dark">
           <tr>
-            <th scope="row">{{training.id}}</th>
-            <td>{{training.trainingDate | date("d/m/Y h:i")}}</td>
-            <td>{{training.slot}}</td>
-            <td>{{training.info}}</td>
-            <td>{{training.openingRegistrationDate | date("d/m/Y h:i")}}</td>
-            {% if training.adult == 1 %}
-            <td>adulte</td>
-            {% else %}
-            <td>enfant</td>              
-            {% endif %}
-            <td>
-              <a href="{{ path('admin_training_edit', {'training': training.id}) }}" class="btn btn-primary">
-                <i class="fas fa-edit"></i>
-              </a>
-              <a href="{{ path('admin_training_delete', {'training': training.id}) }}" class="btn btn-danger">
-                <i class="fas fa-trash"></i>
-              </a>
-            </td>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Places</th>
+            <th scope="col">Info</th>
+            <th scope="col">Date ouverture inscription</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Actions</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for training in trainings %}
+
+            <tr>
+              <th scope="row">{{training.id}}</th>
+              <td>{{training.trainingDate | date("d/m/Y h:i")}}</td>
+              <td>{{training.slot}}</td>
+              <td>{{training.info}}</td>
+              <td>{{training.openingRegistrationDate | date("d/m/Y h:i")}}</td>
+              {% if training.adult == 1 %}
+              <td>adulte</td>
+              {% else %}
+              <td>enfant</td>              
+              {% endif %}
+              <td>
+                <a href="{{ path('admin_training_edit', {'training': training.id}) }}" class="btn btn-primary">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a href="{{ path('admin_training_delete', {'training': training.id}) }}" class="btn btn-danger">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 
 {% endblock %}

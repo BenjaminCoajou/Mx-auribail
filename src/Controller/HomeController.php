@@ -121,7 +121,7 @@ class HomeController extends AbstractController
         );
 
         //check if the user is already register for the training
-        if(empty($userTraining))
+        if(empty($userTraining)) 
         {
             $userTraining = new UserTraining;
             $userTraining->setTraining($training);

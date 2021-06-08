@@ -74,7 +74,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/trainig/create", name="admin_training_create")
+     * @Route("/admin/training/create", name="admin_training_create")
      */
     public function createTraining(Request $request, EntityManagerInterface $em)
     {
