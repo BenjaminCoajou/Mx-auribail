@@ -42,12 +42,10 @@ class HomeController extends AbstractController
             $listIdChild[] = $child->getUser()->getId();
         }
 
-
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $userTrainingAdult = $repoUserTraining->findBy([
             'training' => $trainingAdult
         ]);
-
 
         $usertrainingChild = $repoUserTraining->findBy([
             'training' => $trainingChild
@@ -102,8 +100,6 @@ class HomeController extends AbstractController
         $placeEnfant = count($usertrainingChild);
 
         return $this->render('home/index.html.twig', compact('trainingAdult', 'trainingChild', 'placeAdult', 'placeEnfant','listIdAdult','listIdChild','nameList', 'userPlace'));
-
-
     }
 
     /**
@@ -120,7 +116,7 @@ class HomeController extends AbstractController
         );
 
         //check if the user is already register for the training
-        if(empty($userTraining))
+        if(empty($userTraining)) 
         {
             $userTraining = new UserTraining;
             $userTraining->setTraining($training);
@@ -151,6 +147,5 @@ class HomeController extends AbstractController
         $em->flush();
 
        return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
-    }   
-
+    }
 }

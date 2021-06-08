@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form(form)}}
-    <a class="btn btn-danger" href="{{ path('admin') }}">Annuler</a>
+    <div class="container">
+        <h2 class="my-3"> Création d'un entrainement </h2> 
+        {{ form(form)}}
+        <a class="btn btn-danger" href="{{ path('admin') }}">Annuler</a>
+    </div>
 {% endblock %}

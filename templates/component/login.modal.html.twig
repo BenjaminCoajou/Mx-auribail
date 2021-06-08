@@ -11,14 +11,14 @@
                 <form method="post" action="{{ path('app_login')}}">
                     <label for="inputEmail">Email</label>
                     <input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                    <label for="inputPassword">Password</label>
+                    <label for="inputPassword">Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">                
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" type="submit">Connexion</button>
                 </form>
-                <a href={{ path('app_register') }}>S'inscire</a>
+                <a href={{ path('app_register') }}>S'inscrire</a>
             </div>
         </div>
     </div>
