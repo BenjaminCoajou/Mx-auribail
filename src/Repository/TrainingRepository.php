@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Training;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,25 @@ class TrainingRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Training::class);
+    }
+
+
+    // Find the next Training session for '1' Adults for '0' Childs
+    public function findNextTraining($isAdult)
+    {
+        $now = new DateTime();
+
+        $result =  $this->createQueryBuilder('t')
+            ->andWhere('t.adult = :isAdult')
+            ->andWhere('t.trainingDate > :now')
+            ->orderBy('t.trainingDate', 'ASC')
+            ->setParameter('isAdult', $isAdult )
+            ->setParameter('now', $now )
+            ->setMaxResults('1')
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result;
     }
 
     // /**

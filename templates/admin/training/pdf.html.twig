@@ -1,0 +1,41 @@
+{% block stylesheets %}
+      <link rel="stylesheet" href={{ absolute_url(asset('https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css')) }} integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+
+  <div class="row">
+    <div class="col-10 mx-auto mt-5">
+      <p>Entrainement 
+       {% if train.adult %}
+           Adulte
+       {% else %}
+        Enfant
+       {% endif %}
+      
+      </p>
+      <p>Du {{ train.trainingDate| date('d/m/Y') }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <table class="col-10 table mt-5 mx-auto">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Pr&eacute;nom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">N&ring;Licence</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for list in pdf %}
+          <tr class="text-center">
+            <td>{{ list.user.firstName}}</td>
+            <td>{{ list.user.lastName}}</td>
+            <td>{{ list.user.licence}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

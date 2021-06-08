@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Service\Mailer;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Snappy\Pdf;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 
 class AdminController extends AbstractController
 {
@@ -167,6 +169,34 @@ class AdminController extends AbstractController
         $list = $repoUserTraining->findAll();
 
         return $this->render('admin/training/list.html.twig', compact('list'));
+    }
+
+    /**
+     * @Route("/admin/training/pdf/{training}",name="admin_training_pdf")
+     */
+    public function pdfTraining(Request $request, UserTraining $userTraining, Training $training, EntityManagerInterface $em, Pdf $snappy)
+    {
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        $pdf = $repoUserTraining->findBy([
+            'training' => $training
+        ]);
+
+        $train = $training;
+
+        //return $this->render('admin/training/pdf.html.twig', compact('pdf', 'train'));
+        
+        $html = $this->renderView('admin/training/pdf.html.twig', array(
+            'pdf' => $pdf,
+            'train' => $train
+        ));
+        
+        $filename = 'Entrainement-'.$train->getTrainingDate()->format('d-m-y');
+
+        return new PdfResponse(
+            $snappy->getOutputFromHtml($html),
+            $filename.'.pdf"'
+            
+        );
     }
 
 }

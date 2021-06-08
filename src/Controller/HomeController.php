@@ -20,31 +20,37 @@ class HomeController extends AbstractController
      */
     public function index(EntityManagerInterface $em, ?UserInterface $user)
     {
-        $repoTraining = $em->getRepository(Training::class);
-        $trainingAdulte = $repoTraining->findOneBy(
-            [
-                'adult' => 1
-            ],
-            [
-                'trainingDate' => 'desc'
-            ]
-        );
 
-        $trainingEnfant = $repoTraining->findOneBy([
-            'adult' => 0
-        ], [
-            'trainingDate' => 'desc'
-        ]);
+        $repoTraining = $em->getRepository(Training::class);
+
+        $trainingAdult = $repoTraining->findNextTraining('1');
+        $trainingChild = $repoTraining->findNextTraining('0');
+        
+
+        $repoUserTraining = $em->getRepository(USerTraining::class);
+        $adults = $repoUserTraining->findby(['training'=>$trainingAdult]);
+        $childs = $repoUserTraining->findby(['training'=>$trainingChild]);
+
+        $listIdAdult = [];
+        foreach($adults as $adult)
+        {
+            $listIdAdult[] = $adult->getUser()->getId();
+        }
+        $listIdChild = [];
+        foreach($childs as $child)
+        {
+            $listIdChild[] = $child->getUser()->getId();
+        }
+
 
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $userTrainingAdult = $repoUserTraining->findBy([
-            'training' => $trainingAdulte
+            'training' => $trainingAdult
         ]);
 
-        $userTrainingEnfant = $repoUserTraining->findBy([
-            'training' => $trainingEnfant
-        ], [
-            'dateRegistration' => 'desc'
+
+        $usertrainingChild = $repoUserTraining->findBy([
+            'training' => $trainingChild
         ]);
 
         // si un utilisateur est connecté
@@ -92,13 +98,12 @@ class HomeController extends AbstractController
             $userPlace = false;
         }
 
-
-
-
         $placeAdult = count($userTrainingAdult);
-        $placeEnfant = count($userTrainingEnfant);
+        $placeEnfant = count($usertrainingChild);
 
-        return $this->render('home/index.html.twig', compact('trainingAdulte', 'trainingEnfant', 'placeAdult', 'placeEnfant', 'nameList', 'userPlace'));
+        return $this->render('home/index.html.twig', compact('trainingAdult', 'trainingChild', 'placeAdult', 'placeEnfant','listIdAdult','listIdChild','nameList', 'userPlace'));
+
+
     }
 
     /**
@@ -106,14 +111,46 @@ class HomeController extends AbstractController
      */
     public function inscription(EntityManagerInterface $em, Training $training, User $user)
     {
-        $userTraining = new UserTraining;
-        $userTraining->setTraining($training);
-        $userTraining->setUser($user);
-        $userTraining->setDateRegistration(new DateTime('NOW'));
 
-        $em->persist($userTraining);
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        $userTraining = $repoUserTraining->findBy(
+            ['user' => $user,
+            'training' => $training
+            ]
+        );
+
+        //check if the user is already register for the training
+        if(empty($userTraining))
+        {
+            $userTraining = new UserTraining;
+            $userTraining->setTraining($training);
+            $userTraining->setUser($user);
+            $userTraining->setDateRegistration(new DateTime('NOW'));
+
+            $em->persist($userTraining);
+            $em->flush();
+        }
+
+       return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
+          
+    }
+
+
+    /**
+     * @Route("/unsub/{user}-{training}", name="home_unsub")
+     */
+    public function unsubscription(EntityManagerInterface $em, Training $training, User $user)
+    {
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        $userTraining = $repoUserTraining->findOneBy(
+            ['user' => $user,
+            'training' => $training
+            ]
+        );
+        $em->remove($userTraining);
         $em->flush();
 
-        return $this->redirectToRoute('home', ['_fragment' => 'home-training']);
-    }
+       return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
+    }   
+
 }

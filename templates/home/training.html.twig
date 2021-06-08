@@ -5,16 +5,16 @@
                 <img class="card-img-top img-fluid" src="assets/img/moto1.jpg" alt="image moto 1">
                 <div class="card-body">
                     <h5 class="card-title">Entrainement Adulte</h5>
-                    {% if trainingAdulte %}
+                    {% if trainingAdult %}
                         <ul>
-                            <li><p class="card-text"> Place disponible : {{ trainingAdulte.slot }} </p></li>
-                            <li><p class="card-text"> Date : {{ trainingAdulte.trainingDate | date('d/m/Y') }} </p></li>
-                            <li><p class="card-text"> Les informations importantes : {{ trainingAdulte.info }} </p></li>
-                            <li><p class="card-text"> Date d'ouverture de l'inscription : {{ trainingAdulte.openingRegistrationDate | date('d/m/Y') }} </p></li>
+                            <li><p class="card-text"> Place disponible : {{ trainingAdult.slot }} </p></li>
+                            <li><p class="card-text"> Date : {{ trainingAdult.trainingDate | date('d/m/Y') }} </p></li>
+                            <li><p class="card-text"> Les informations importantes : {{ trainingAdult.info }} </p></li>
+                            <li><p class="card-text"> Date d'ouverture de l'inscription : {{ trainingAdult.openingRegistrationDate | date('d/m/Y') }} </p></li>
                         </ul>
 
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: {{ placeAdult / trainingAdulte.slot * 100  }}%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                            <div class="progress-bar" role="progressbar" style="width: {{ placeAdult / trainingAdult.slot * 100  }}%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdult.slot }}>
                             </div>
                         </div>
                     {% else %}
@@ -22,41 +22,56 @@
                     {% endif %}
                     
                 </div>
-                {% if trainingAdulte and app.user and "now" | date('Y') - app.user.birthday | date('Y') >= 18 and trainingAdulte.openingRegistrationDate | date('d/m/Y') < "now" | date('d/m/Y') %}
-                <a href="{{ path('home_inscription', {'training': trainingAdulte.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
-                    {% else %}
+                {% if app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}
+                    <a href="{{ path('home_unsub', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
+                {% elseif trainingAdult 
+                and app.user 
+                and "now" | date('Y') - app.user.birthday | date('Y') >= 18 
+                and trainingAdult.openingRegistrationDate | date('Y') <= "now" | date('Y')
+                %}
+                    <a href="{{ path('home_inscription', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
                 {% endif %}
             </div>
         </div>
+
+
         <div class="col-6">        
             <div class="card" >
                 <img class="card-img-top img-fluid" src="assets/img/moto2.jpg" alt="image moto 2">
                 <div class="card-body">
                     <h5 class="card-title">Entrainement Enfant</h5>
-                    {% if trainingEnfant %}
+                    {% if trainingChild %}
                         <ul>
-                            <li><p class="card-text"> Place disponible : {{ trainingEnfant.slot }} </p></li>
-                            <li><p class="card-text"> Date : {{ trainingEnfant.trainingDate | date('d/m/Y') }} </p></li>
-                            <li><p class="card-text"> Les informations importantes : {{ trainingEnfant.info }} </p></li>
-                            <li><p class="card-text"> Date d'ouverture de l'inscription : {{ trainingEnfant.openingRegistrationDate | date('d/m/Y') }} </p></li>            
+                            <li><p class="card-text"> Place disponible : {{ trainingChild.slot }} </p></li>
+                            <li><p class="card-text"> Date : {{ trainingChild.trainingDate | date('d/m/Y') }} </p></li>
+                            <li><p class="card-text"> Les informations importantes : {{ trainingChild.info }} </p></li>
+                            <li><p class="card-text"> Date d'ouverture de l'inscription : {{ trainingChild.openingRegistrationDate | date('d/m/Y') }} </p></li>            
                         </ul>
 
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: {{ placeEnfant / trainingEnfant.slot * 100  }}%"aria-valuenow={{ trainingAdulte.slot }} aria-valuemin="0" aria-valuemax={{ trainingAdulte.slot }}>
+                            <div class="progress-bar" role="progressbar" style="width: {{ placeEnfant / trainingChild.slot * 100  }}%"aria-valuenow={{ trainingChild.slot }} aria-valuemin="0" aria-valuemax={{ trainingChild.slot }}>
                             </div>
                         </div>
                     {% else %}
                         <p>Pas d'entrainement de prévu pour le moment.</p>
                     {% endif %}
                 </div>
-                {% if trainingEnfant and app.user and "now" | date('Y') - app.user.birthday | date('Y') < 18 and trainingEnfant.openingRegistrationDate | date('d/m/Y') < "now" | date('d/m/Y') %}
-                                
-                    <a href="{{ path('home_inscription', {'training': trainingEnfant.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
-                 {% else %}
+                {% if app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
+                    <a href="{{ path('home_unsub', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
+                {% elseif trainingChild 
+                and app.user 
+                and "now" | date('Y') - app.user.birthday | date('Y') < 18 
+                and trainingChild.openingRegistrationDate | date('d/m/Y') <= "now" | date('d/m/Y') 
+                %}            
+                    <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                {% else %}
                     <a href="#" class="btn btn-primary disabled">Inscription</a>
                 {% endif %}                        
-    
+                           
+
+
                
             </div>
         </div>
