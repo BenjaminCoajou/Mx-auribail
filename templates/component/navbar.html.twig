@@ -1,53 +1,33 @@
-<!-- Navbar -->
-    <div class="fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container-fluid">
 
-        <div class="collapse" id="navbarToggleExternalContent">
-
-            <div class="bg-opacity p-4">
-                <nav class="navbar navbar-expand-lg navbar-dark">
-                    <div class="navbar" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="navbar-brand" href={{ path('home')~'#home' }}>MxTrail Auribail</a>
-                            <li class="nav-item">
-                                <a class="nav-link" href={{ path('home')~"#home-training"}}>Prochain entrainement</a>
-                            </li>
-                            {# <li class="nav-item">
-                                <a class="nav-link" href="#club">Club</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#training">Infos Entrainement</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#actu">Actualitées</a>
-                            </li> #}
-                            <li class="nav-item">
-                               {% if is_granted('ROLE_ADMIN') %}
-                                    <a class="nav-link" href={{ path('admin') }}>Admin </a>
-                                {% endif %} 
-                            </li>
-                            <li class="nav-item">
-                               {% if app.user %}
-                                    <a class="nav-link" href={{ path('app_logout') }}>Déconnexion </a>
-                                    <a class="nav-link" href={{ path('user', {'id': app.user.id}) }}> Mon compte </a>
-                                    <a class="nav-link" href={{ path('training', {'id': app.user.id}) }}> Mes entrainements </a>
-                                {% else %}
-                                    <a class="nav-link" href='' data-toggle="modal" data-target="#login-modal">
-                                        Connexion
-                                    </a>
-                                {% endif %} 
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav m-auto">
+            <li class="nav-item active"><a class="nav-link" href={{ path('home')~'#home' }}>Mx Park</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href={{ path('home')~"#home-training"}}>Prochain entrainement</a>
+            </li>
+            {% if app.user %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> {{app.user.firstname}}</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                    <a class="dropdown-item" href={{ path('training', {'id': app.user.id}) }}>Historique</i></a>
+                    <a class="dropdown-item" href={{ path('user', {'id': app.user.id}) }}>Paramètres</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="dropdown-item" href={{ path('admin') }}>Admin</a>
+                    {% endif %} 
+                    <a class="dropdown-item" href={{ path('app_logout') }}>Déconnexion </a>
+                </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href='' data-toggle="modal" data-target="#login-modal"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+            </li>
+            {% endif %}
+        </ul>
         </div>
-        <nav class="navbar navbar-dark">
-
-            <button class="navbar-toggler bg-opacity" type="button" data-toggle="collapse"
-                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
-</div>
+    </div>
+</nav>
