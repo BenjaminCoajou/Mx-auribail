@@ -52,10 +52,6 @@ class HomeController extends AbstractController
             'training' => $trainingChild
         ]);
 
-        $usertrainingChild = $repoUserTraining->findBy([
-            'training' => $trainingChild
-        ]);
-
         // si un utilisateur est connecté
         if ($user) {
             // je récupère son id et son mail

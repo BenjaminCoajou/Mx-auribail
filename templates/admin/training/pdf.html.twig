@@ -27,12 +27,15 @@
         </tr>
       </thead>
       <tbody>
+          
         {% for list in pdf %}
+          {% if list.user %}              
           <tr class="text-center">
             <td>{{ list.user.firstName}}</td>
             <td>{{ list.user.lastName}}</td>
             <td>{{ list.user.licence}}</td>
           </tr>
+          {% endif %}
         {% endfor %}
       </tbody>
     </table>
