@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Training;
 use App\Entity\User;
 use App\Entity\UserTraining;
+use App\Service\Mailer;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -105,7 +106,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/inscription/{user}-{training}", name="home_inscription")
      */
-    public function inscription(EntityManagerInterface $em, Training $training, User $user)
+    public function inscription(EntityManagerInterface $em, Training $training, User $user, Mailer $mailer)
     {
 
         $repoUserTraining = $em->getRepository(UserTraining::class);
@@ -125,6 +126,11 @@ class HomeController extends AbstractController
 
             $em->persist($userTraining);
             $em->flush();
+
+            //Send mail when the user get register
+            $subjet = "Test Mail Inscription";
+            $msg = "Test msg inscription / Congratulation vous êtes bien inscrit! ";
+            $mailer->sendEmail($user,$subjet,$msg);
         }
 
        return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
