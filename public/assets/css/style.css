@@ -1,3 +1,6 @@
+body{
+    background-color:#f8f9fa ;
+}
 .home {
     background-image: url("../img/motocross-1.jpg") !important;
     background-position: center;
@@ -311,4 +314,15 @@ color: #ff0000; }
 }
 .ftco-navbar-light .navbar-toggler:focus {
     outline: none !important; 
+}
+
+/* Progress bar */
+.progress
+{
+    height: 25px;
+}
+
+.progress-bar strong{
+    font-size: 1.1em;
+    text-shadow: black 0 0 3px;
 }
