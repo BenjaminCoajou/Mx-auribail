@@ -158,23 +158,30 @@ class AdminController extends AbstractController
         return $this->render('admin/training/delete.html.twig', ['form' => $form->createView()]);
     }
 
-
     /**
-     * @Route("/admin/training/list",name="admin_training_list")
+     * @Route("/admin/training/list/{training}",name="admin_training_users_list")
      */
-    public function listTrainings(EntityManagerInterface $em)
+    public function listUsersTraining(EntityManagerInterface $em,Training $training)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
         
-        $list = $repoUserTraining->findAll();
+        $list = $repoUserTraining->findBy([
+            'training' => $training,
+        ],
+        [
+            'dateRegistration' => 'ASC',
+        ]
+        );
 
-        return $this->render('admin/training/list.html.twig', compact('list'));
+        return $this->render('admin/training/list.html.twig', compact('list','training'));
     }
+
+
 
     /**
      * @Route("/admin/training/pdf/{training}",name="admin_training_pdf")
      */
-    public function pdfTraining(Training $training, EntityManagerInterface $em, Pdf $snappy)
+    public function pdfTraining(Request $request, UserTraining $userTraining, Training $training, EntityManagerInterface $em, Pdf $snappy)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $pdf = $repoUserTraining->findBy([
@@ -194,7 +201,7 @@ class AdminController extends AbstractController
 
         return new PdfResponse(
             $snappy->getOutputFromHtml($html),
-            $filename.'.pdf'
+            $filename.'.pdf"'
             
         );
     }
