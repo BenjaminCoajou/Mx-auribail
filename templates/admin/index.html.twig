@@ -4,22 +4,19 @@
 
 {% block body %}
 
-  <div class="container">
-    <h1 class="my-3">
-      Admin
-    </h1>
+
+  <div class="container">    
     <div class="row col-12 mt-3 ml-2">
       <div>
         <h2>Utilisateur</h2>
-        <a class="btn btn-primary my-3" href="{{ path('admin_training_list') }}">Liste des utilisateurs inscrits</a>
       </div>
       <table class="table table-striped">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Email</th>
             <th scope="col">Prenom</th>
             <th scope="col">Nom</th>
+            <th scope="col">Email</th>
             <th scope="col">Anniversaire</th>
             <th scope="col">Licence</th>
             <th scope="col">Telephone</th>
@@ -31,9 +28,9 @@
 
             <tr>
               <th scope="row">{{user.id}}</th>
-              <td>{{user.email}}</td>
               <td>{{user.firstName}}</td>
               <td>{{user.lastName}}</td>
+              <td>{{user.email}}</td>
               <td>{{user.birthday | date("d/m/Y")}}</td>
               <td>{{user.licence}}</td>
               <td>{{user.phone}}</td>
@@ -84,18 +81,14 @@
                 <td>enfant</td>
               {% endif %}
               <td>
-
-                <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
-                  <i class="fas fa-file-pdf"></i>
-                </a>
-                <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
-                  <i class="fas fa-file-pdf"></i>
-                </a>
                 <a href="{{ path('admin_training_edit', {'training': training.id}) }}" class="btn btn-primary">
                   <i class="fas fa-edit"></i>
                 </a>
                 <a href="{{ path('admin_training_delete', {'training': training.id}) }}" class="btn btn-danger">
                   <i class="fas fa-trash"></i>
+                </a>
+                <a href="{{ path('admin_training_users_list', {'training': training.id}) }}" class="btn btn-warning">
+                  <i class="fas fa-plus"></i>
                 </a>
               </td>
             </tr>

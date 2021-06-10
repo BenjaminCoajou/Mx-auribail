@@ -1,6 +1,6 @@
 <section class="container trainingCards" id="home-training">
     <div class="row my-5 py-5">
-        <div class="col-6">
+        <div class="col-6 col-sm-12 col-md-12 col-lg-6 mb-5">
             <div class="card border-light h-100">
                 <img class="card-img-top img-fluid" src="assets/img/moto1.jpg" alt="Session Adulte">
                 <div class="card-body">
@@ -23,7 +23,7 @@
                             <a href="{{ path('home_unsub', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
                         {% elseif trainingAdult 
                         and app.user 
-                        and "now" | date('Y') - app.user.birthday | date('Y') >= 18 
+                        and age >= 18 
                         and date(trainingAdult.openingRegistrationDate) <= date('now')
                         %}
                             <a href="{{ path('home_inscription', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="col-6">
+        <div class="col-6 col-md-12 col-lg-6">
             <div class="card border-light h-100">
                 <img class="card-img-top img-fluid" src="assets/img/moto2.jpg" alt="Session Enfant">
                 <div class="card-body">
@@ -58,7 +58,7 @@
                             <a href="{{ path('home_unsub', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
                         {% elseif trainingChild 
                         and app.user 
-                        and "now" | date('Y') - app.user.birthday | date('Y') < 18 
+                        and age < 18 
                         and date(trainingChild.openingRegistrationDate) <= date('now')
                         %}
                             <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>

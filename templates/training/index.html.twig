@@ -3,13 +3,14 @@
       <link rel="stylesheet" href="../../public/assets/css/style.css">
 {% endblock %}
 
-{% block title %} Liste des entrainements {% endblock %}
+{% block title %} Historique {% endblock %}
 
 {% block body %}
-    <h1 class="my-5"> Liste des entrainements </h1>
+<div class="container">
+    <h1 class="my-5"> Historique des entrainements </h1>
 
     <table class="table table-striped">
-        <thead>
+        <thead class="thead-dark">
             <tr>
             <th scope="col">Date de l'entrainement</th>
             <th scope="col">Informations</th>
@@ -24,6 +25,6 @@
             {% endfor %}
         </tbody>
     </table>
-
+</div>
         
 {% endblock %}

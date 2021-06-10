@@ -1,77 +1,53 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-      <link rel="stylesheet" href="../../../public/assets/css/style.css">
+  <link rel="stylesheet" href="../../../public/assets/css/style.css">
 {% endblock %}
 
 {% block body %}
-        <div class="container">
-            <h2 class="my-3"> Liste des utilisateurs inscrits </h2>
-            <h2> Adulte </h2>
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Prenom</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Anniversaire</th>
-                    <th scope="col">License</th>
-                    <th scope="col">Telephone</th>
+  <div class="container">
+    <h2 class="my-3">Inscrits pour la session
+      {% if training.adult == 1 %}
+        adulte
+      {% else %}
+        enfant
+      {% endif %}
+      du
+      {{ training.trainingDate | date("d/m/Y") }}</h2>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Positon</th>
+          <th scope="col">Prenom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Date d'inscription</th>
+          <th scope="col">Email</th>
+          <th scope="col">License</th>
+          <th scope="col">Telephone</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                {% set i = 0 %}
-                {% for element in list %}
-                    {% if element.training.adult == 1 %}
-                        {% set i = i + 1 %}
-                        <tr>
-                            <th scope="row">{{ i }}</th>
-                            <td>{{element.user.email}}</td>
-                            <td>{{element.user.firstName}}</td>
-                            <td>{{element.user.lastName}}</td>
-                            <td>{{element.user.birthday | date("d/m/Y")}}</td>
-                            <td>{{element.user.licence}}</td>
-                            <td>{{element.user.phone}}</td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-                </tbody>
-            </table>
+        </tr>
+      </thead>
+      <tbody>
+        {% set i = 0 %}
+        {% for element in list %}
+          {% set i = i + 1 %}
+          <tr>
+            <th scope="row">{{ i }}</th>
+            <td>{{element.user.firstName}}</td>
+            <td>{{element.user.lastName}}</td>
+            <td>{{element.dateRegistration | date("d/m/Y H:i")}}</td>
+            <td>{{element.user.email}}</td>
+            <td>{{element.user.licence}}</td>
+            <td>{{element.user.phone}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a class="btn btn-primary" href="{{ path('admin') }}">Retour</a>
+    {% if list %}
+    <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
+      <i class="fas fa-file-pdf"></i>
+    </a>
+    {% endif %}
+  </div>
 
-            <h2> Enfant </h2>
-            <table class="container table table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Prenom</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Anniversaire</th>
-                    <th scope="col">License</th>
-                    <th scope="col">Telephone</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                {% set i = 0 %}
-                {% for element in list %}
-                    {% if element.training.adult == 0 %}
-                        {% set i = i + 1 %}
-                        <tr>
-                            <th scope="row">{{ i }}</th>
-                            <td>{{element.user.email}}</td>
-                            <td>{{element.user.firstName}}</td>
-                            <td>{{element.user.lastName}}</td>
-                            <td>{{element.user.birthday | date("d/m/Y")}}</td>
-                            <td>{{element.user.licence}}</td>
-                            <td>{{element.user.phone}}</td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-                </tbody>
-            </table>
-            <a class="btn btn-danger" href="{{ path('admin') }}">Annuler</a>
-        </div>
-        
 {% endblock %}
