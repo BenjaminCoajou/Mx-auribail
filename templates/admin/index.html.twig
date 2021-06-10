@@ -5,12 +5,10 @@
 {% block body %}
 
 
-  <div class="container">
-    <h1 class="my-3"> Admin </h1>    
+  <div class="container">    
     <div class="row col-12 mt-3 ml-2">
       <div>
         <h2>Utilisateur</h2>
-        <a class="btn btn-primary my-3" href="{{ path('admin_training_list') }}">Liste des utilisateurs inscrits</a>
       </div>
       <table class="table table-striped">
         <thead class="thead-dark">
@@ -83,14 +81,17 @@
               <td>enfant</td>              
               {% endif %}
               <td>
-              <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
-                <i class="fas fa-file-pdf"></i>
-              </a>
+                <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
+                  <i class="fas fa-file-pdf"></i>
+                </a>
                 <a href="{{ path('admin_training_edit', {'training': training.id}) }}" class="btn btn-primary">
                   <i class="fas fa-edit"></i>
                 </a>
                 <a href="{{ path('admin_training_delete', {'training': training.id}) }}" class="btn btn-danger">
                   <i class="fas fa-trash"></i>
+                </a>
+                <a href="{{ path('admin_training_users_list', {'training': training.id}) }}" class="btn btn-warning">
+                  <i class="fas fa-plus"></i>
                 </a>
               </td>
             </tr>
