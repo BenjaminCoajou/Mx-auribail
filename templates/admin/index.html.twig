@@ -16,9 +16,9 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Email</th>
             <th scope="col">Prenom</th>
             <th scope="col">Nom</th>
+            <th scope="col">Email</th>
             <th scope="col">Anniversaire</th>
             <th scope="col">Licence</th>
             <th scope="col">Telephone</th>
@@ -30,9 +30,9 @@
 
             <tr>
               <th scope="row">{{user.id}}</th>
-              <td>{{user.email}}</td>
               <td>{{user.firstName}}</td>
               <td>{{user.lastName}}</td>
+              <td>{{user.email}}</td>
               <td>{{user.birthday | date("d/m/Y")}}</td>
               <td>{{user.licence}}</td>
               <td>{{user.phone}}</td>

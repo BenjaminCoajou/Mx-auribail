@@ -8,9 +8,9 @@
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Email</th>
                     <th scope="col">Prenom</th>
                     <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Anniversaire</th>
                     <th scope="col">License</th>
                     <th scope="col">Telephone</th>
@@ -24,9 +24,9 @@
                         {% set i = i + 1 %}
                         <tr>
                             <th scope="row">{{ i }}</th>
-                            <td>{{element.user.email}}</td>
                             <td>{{element.user.firstName}}</td>
                             <td>{{element.user.lastName}}</td>
+                            <td>{{element.user.email}}</td>
                             <td>{{element.user.birthday | date("d/m/Y")}}</td>
                             <td>{{element.user.licence}}</td>
                             <td>{{element.user.phone}}</td>
@@ -41,9 +41,9 @@
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Email</th>
                     <th scope="col">Prenom</th>
                     <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Anniversaire</th>
                     <th scope="col">License</th>
                     <th scope="col">Telephone</th>
@@ -57,9 +57,9 @@
                         {% set i = i + 1 %}
                         <tr>
                             <th scope="row">{{ i }}</th>
-                            <td>{{element.user.email}}</td>
                             <td>{{element.user.firstName}}</td>
                             <td>{{element.user.lastName}}</td>
+                            <td>{{element.user.email}}</td>
                             <td>{{element.user.birthday | date("d/m/Y")}}</td>
                             <td>{{element.user.licence}}</td>
                             <td>{{element.user.phone}}</td>
