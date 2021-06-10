@@ -4,9 +4,10 @@
 
 {% block body %}
 
-
   <div class="container">
-    <h1 class="my-3"> Admin </h1>    
+    <h1 class="my-3">
+      Admin
+    </h1>
     <div class="row col-12 mt-3 ml-2">
       <div>
         <h2>Utilisateur</h2>
@@ -65,7 +66,7 @@
             <th scope="col">Date ouverture</th>
             <th scope="col">Catégorie</th>
             <th scope="col">Actions</th>
-           
+
           </tr>
         </thead>
         <tbody>
@@ -78,14 +79,18 @@
               <td>{{training.info}}</td>
               <td>{{training.openingRegistrationDate | date("d/m/Y h:i")}}</td>
               {% if training.adult == 1 %}
-              <td>adulte</td>
+                <td>adulte</td>
               {% else %}
-              <td>enfant</td>              
+                <td>enfant</td>
               {% endif %}
               <td>
-              <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
-                <i class="fas fa-file-pdf"></i>
-              </a>
+
+                <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
+                  <i class="fas fa-file-pdf"></i>
+                </a>
+                <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
+                  <i class="fas fa-file-pdf"></i>
+                </a>
                 <a href="{{ path('admin_training_edit', {'training': training.id}) }}" class="btn btn-primary">
                   <i class="fas fa-edit"></i>
                 </a>
