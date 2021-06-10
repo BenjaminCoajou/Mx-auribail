@@ -73,7 +73,7 @@
               <th scope="row">{{training.id}}</th>
               <td>{{training.trainingDate | date("d/m/Y h:i")}}</td>
               <td>{{training.slot}}</td>
-              <td>{{training.info}}</td>
+              <td>{{training.info | u.truncate(30, '...')}}</td>
               <td>{{training.openingRegistrationDate | date("d/m/Y h:i")}}</td>
               {% if training.adult == 1 %}
                 <td>adulte</td>
