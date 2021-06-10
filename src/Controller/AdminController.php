@@ -181,7 +181,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/training/pdf/{training}",name="admin_training_pdf")
      */
-    public function pdfTraining(Request $request, UserTraining $userTraining, Training $training, EntityManagerInterface $em, Pdf $snappy)
+    public function pdfTraining( Training $training, EntityManagerInterface $em, Pdf $snappy)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $pdf = $repoUserTraining->findBy([
