@@ -68,7 +68,13 @@ class HomeController extends AbstractController
                 $training = $trainingAdult;
             }
 
-            if($training){
+            $currentUserTraining = $repoUserTraining->findby([
+                'training' => $training,
+                'user' => $user
+            ]);
+
+
+            if(!empty($currentUserTraining)){
                 $users =$repoUserTraining->findBy([
                     'training'=> $training,
                 ],
