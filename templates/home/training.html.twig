@@ -1,7 +1,7 @@
 <section class="container trainingCards" id="home-training">
     <div class="row my-5 py-5">
         <div class="col-md-12 col-lg-6 mb-5">
-            <div class="card border-light h-100">
+            <div class="card border-light h-100 training-home">
                 <img class="card-img-top img-fluid" src="assets/img/moto1.jpg" alt="Session Adulte">
                 <div class="card-body">
                     {% if trainingAdult %}
@@ -35,7 +35,8 @@
             </div>
         </div>
 
-        <div class="card border-light h-100 col-md-12 col-lg-6">
+        <div class="col-md-12 col-lg-6 mb-5">
+        <div class="card border-light h-100 training-home">
             <img class="card-img-top img-fluid" src="assets/img/moto2.jpg" alt="Session Enfant">
             <div class="card-body">
                 {% if trainingChild %}
@@ -64,6 +65,7 @@
                     {% else %}
                         <a href="#" class="btn btn-primary disabled">Inscription</a>
                     {% endif %}
+                </div>
                 </div>
             </div>
         </div>
