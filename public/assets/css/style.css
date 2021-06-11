@@ -33,9 +33,11 @@ body{
 }
 
 
-
+/* navBar */
 .navbar {
-    position: relative;
+    position: fixed;
+    top:0px;
+    width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
