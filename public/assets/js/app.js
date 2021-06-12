@@ -16,7 +16,8 @@ let app = {
            lastPos = pos <= 0 ? 0 : pos;
        });
 
-       konamiCode();  
+       konamiCode();
+       diaporama();  
        
     }
 };
@@ -35,6 +36,19 @@ function konamiCode() {
      }
    }
  });
+}
+
+let i = 2;
+function diaporama() {
+    setInterval(function() {
+        let image = document.getElementById('home');
+        image.style.backgroundImage = "url(http://localhost/Mx-auribail/public/assets/img/motocross-"+i+".jpg)";
+          i++;
+          if (i == 6) {
+            i = 1;
+          }
+    }, 120000);
+    
 }
 
 
