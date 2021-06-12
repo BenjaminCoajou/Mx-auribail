@@ -4,11 +4,14 @@ let app = {
         window.addEventListener("scroll", function() {
            let pos = this.window.pageYOffset;
            if (pos>lastPos){
-               console.log('down');
-               document.getElementById('wheel-icon').style.animation = "title-rotate-right 2s";
+               if( document.getElementById('wheel-icon')) {
+                 document.getElementById('wheel-icon').style.animation = "title-rotate-right 2s";
+               }
                document.getElementById('ftco-navbar').style.display ='none';
             } else {
+              if( document.getElementById('wheel-icon')) {
                 document.getElementById('wheel-icon').style.animation = "title-rotate-left 2s";
+              }
                 document.getElementById('ftco-navbar').style.display ='block';
             
 
@@ -27,7 +30,6 @@ function konamiCode() {
  document.body.addEventListener("keyup", event => {
    if (event.key) {
          secret = secret + event.key;
-         console.log(secret);
 
      let konamiCode = secret.indexOf("ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba");
      if (konamiCode > 0) {
