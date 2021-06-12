@@ -163,4 +163,12 @@ class HomeController extends AbstractController
 
        return $this->redirectToRoute('home',['_fragment' => 'home-training']);         
     }
+    
+    /**
+     * @Route("/dev", name="home_dev")
+     */
+    public function konamiCode(): Response
+    {
+        return $this->render('home/konami.html.twig', []);
+    }
 }
