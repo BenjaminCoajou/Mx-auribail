@@ -13,11 +13,13 @@
                     
                 </div>
                 <div>
+                    {% if trainingAdult %}
                     <div class="progress mx-2">
                         <div class="progress-bar" role="progressbar" style="width: {{ placeAdult / trainingAdult.slot * 100  }}%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingAdult.slot }}>
                             <strong class="justify-content-center d-flex position-absolute w-100 text-white" >{{ placeAdult }} / {{trainingAdult.slot}} places</strong>
                         </div>
                     </div>
+                    {% endif %}
                     <div class="text-right m-2">
                         {% if app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}
                             <a href="{{ path('home_unsub', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
@@ -48,11 +50,13 @@
                     
                 </div>
                 <div>
+                    {% if trainingChild %}
                     <div class="progress mx-2">
                         <div class="progress-bar" role="progressbar" style="width: {{ placeEnfant / trainingChild.slot * 100  }}%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingChild.slot }}>
                             <strong class="justify-content-center d-flex position-absolute w-100 text-white" >{{ placeEnfant }} / {{trainingChild.slot}} places</strong>
                         </div>
                     </div>
+                    {% endif %}
                     <div class="text-right m-2">
                         {% if app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
                             <a href="{{ path('home_unsub', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
