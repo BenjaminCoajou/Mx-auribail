@@ -5,7 +5,7 @@
 
 {% block body %}
   <div class="container">
-    <h2 class="my-3">Inscrits pour la session
+    <h2 class="my-3 mt-5">Inscrits pour la session
       {% if training.adult == 1 %}
         adulte
       {% else %}
@@ -46,6 +46,11 @@
     {% if list %}
     <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
       <i class="fas fa-file-pdf"></i>
+    </a>
+    {% endif %}
+    {% if listNoLicence %}
+      <a href="{{ path('admin_training_users_list_noLicence', {'training': training.id}) }}" class="btn btn-danger">
+      <i class="fas fa-trash"></i>
     </a>
     {% endif %}
   </div>
