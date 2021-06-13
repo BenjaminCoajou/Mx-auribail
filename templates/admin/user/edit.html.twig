@@ -11,11 +11,13 @@
             {{ form_row(form.birthday) }}
             {{ form_row(form.licence) }}
             {{ form_row(form.phone) }}
-            {% if isMember %}
-              {{ form_widget(form.isMember, {'attr': {'checked': 'true'}}) }}
-            {% else %}
-              {{ form_widget(form.isMember) }}
-            {% endif %}
+            <div class="mb-3">
+              {% if isMember %}
+                {{ form_widget(form.isMember, {'attr': {'checked': 'true'}}) }}
+              {% else %}
+                {{ form_widget(form.isMember) }}
+              {% endif %}
+            </div>
             {{ form_rest(form) }}
         {{ form_end(form) }}
         <a class="btn btn-danger" href="{{ path('admin') }}">Annuler</a>
