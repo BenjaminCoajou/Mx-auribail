@@ -252,6 +252,34 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_training_users_list', ['training' => $training->getId()]);
     }
 
+    /**
+     * @Route("admin/training/list/noLicence/mail/{training}", name="admin_user_no_licence_mail")
+     */
+    public function sendMailToUserWithoutLicence(Mailer $mailer, EntityManagerInterface $em, Training $training)
+    {
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        $list = $repoUserTraining->findBy(
+            [
+                'training' => $training,
+            ],
+        );
+
+        foreach ($list as $element) {
+            $user = $element->getUser();
+            if ($user->getLicence() == false) {
+                $subjet = "[Mx Park] - WARNING - Entrainement du ".$training->getTrainingDate()->format('d-m-Y');
+                $msg = "Bonjour ".$user->getFirstname().",\n".
+                "Vous n'avez pas encore renseigné votre numéro de licence, or elle est necessaire pour participer au prochain entrainement du ".$training->getTrainingDate()->format('d-m-Y').
+                "\nVeillez la renseignée sous les plus bref delais sous peine de désinscription à la session d'entrainement.\n\n".
+                "Cordialement,\n".
+                "MX Park - Auribail";
+                $mailer->sendEmail($user, $subjet, $msg);
+            }
+        }
+
+        return $this->redirectToRoute('admin_training_users_list', ['training' => $training->getId()]);
+    }
+
 
 
     /**

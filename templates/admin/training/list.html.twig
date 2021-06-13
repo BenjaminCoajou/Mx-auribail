@@ -52,6 +52,9 @@
     <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
       <i class="fas fa-file-pdf"></i>
     </a>
+    <a href="{{ path('admin_user_no_licence_mail', {'training': training.id}) }}" class="btn btn-warning text-white">
+      <i class="fas fa-envelope"></i>
+    </a>
     {% endif %}
     {% if listNoLicence %}
       <a href="{{ path('admin_training_users_list_noLicence', {'training': training.id}) }}" class="btn btn-danger">
