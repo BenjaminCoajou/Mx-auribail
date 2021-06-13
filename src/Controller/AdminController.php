@@ -32,6 +32,16 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/users", name="list_users")
+     */
+    public function listUsers(EntityManagerInterface $em): Response
+    {
+        $repoUser = $em->getRepository(User::class);
+        $users = $repoUser->findAll();
+        return $this->render('admin/user/list.html.twig', compact('users'));
+    }
+
+    /**
      * @Route("/admin/user/edit/{user}", name="admin_user_edit")
      */
     public function editUser(Request $request, User $user, EntityManagerInterface $em)
@@ -39,15 +49,38 @@ class AdminController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+        $roles = $user->getRoles();
+        $roleMember = "ROLE_MEMBER";
+        $isMember = in_array($roleMember, $roles);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Si la checkbox "membre" à été cochée
+            if($form->get('isMember')->getData())
+            {
+                //si l'user n'a pas deja le role ROLE_MEMBER
+                if (!$isMember) {
+                    $roles[] = $roleMember;
+                }
+                
+            }
+            //si la checkbox n'a pas été cochée 
+            else{
+                //si l'user a le role ROLE_MEMBER
+                if ($isMember) {
+                    unset($roles[array_search($roleMember, $roles)]);
+                }
+            }
+            $user->setRoles($roles);
+
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('admin');
         }
-
+        
         return $this->render('admin/user/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'isMember' => $isMember
         ]);
     }
 

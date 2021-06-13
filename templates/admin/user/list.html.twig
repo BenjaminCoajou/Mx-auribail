@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row mt-5">
+        <h2 class="my-5">Utilisateur</h2>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Anniversaire</th>
+                <th scope="col">Licence</th>
+                <th scope="col">Telephone</th>
+                <th scope="col">Membre</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+                <tr>
+                  <th scope="row">{{user.id}}</th>
+                  <td>{{user.firstName}}</td>
+                  <td>{{user.lastName}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.birthday | date("d/m/Y")}}</td>
+                  <td>{{user.licence}}</td>
+                  <td>{{user.phone}}</td>
+                  {{ dump(user.roles) }}
+                  <td>{{user.phone}}</td>
+                  <td>
+                    <a href="{{ path('admin_user_edit', {'user': user.id}) }}" class="btn btn-primary">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="{{ path('admin_user_delete', {'user': user.id}) }}" class="btn btn-danger">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+
+{% endblock %}

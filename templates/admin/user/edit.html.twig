@@ -1,9 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <div class="container">
-    <h2 class="my-3"> Edition informations utilisateur</h2>
-    {{ form(form)}}
-    <a class="btn btn-danger" href="{{ path('admin') }}">Annuler</a>
-  </div>
-  {% endblock %}
+    <div class="container mt-5">
+        <h2 class="my-5"> Edition informations utilisateur</h2>
+        {{ form_start(form) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.birthday) }}
+            {{ form_row(form.licence) }}
+            {{ form_row(form.phone) }}
+            {% if isMember %}
+              {{ form_widget(form.isMember, {'attr': {'checked': 'true'}}) }}
+            {% else %}
+              {{ form_widget(form.isMember) }}
+            {% endif %}
+            {{ form_rest(form) }}
+        {{ form_end(form) }}
+        <a class="btn btn-danger" href="{{ path('admin') }}">Annuler</a>
+    </div>
+{% endblock %}

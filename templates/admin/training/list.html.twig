@@ -23,7 +23,7 @@
           <th scope="col">Email</th>
           <th scope="col">License</th>
           <th scope="col">Telephone</th>
-
+          <th scope="col">Membre</th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +38,11 @@
             <td>{{element.user.email}}</td>
             <td>{{element.user.licence}}</td>
             <td>{{element.user.phone}}</td>
+            {% if "ROLE_MEMBER" in element.user.roles %} 
+              <td class="text-center text-success"><i class="fas fa-check"></i></td>
+            {% else %}
+              <td class="text-center text-danger"><i class="fas fa-times"></i></td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>
