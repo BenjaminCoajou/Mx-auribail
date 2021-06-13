@@ -159,7 +159,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/training/delete/{training}",name="admin_training_delete")
      */
-    public function deleteTraining(Mailer $mailer,Request $request, Training $training, EntityManagerInterface $em)
+    public function deleteTraining(Mailer $mailer, Request $request, Training $training, EntityManagerInterface $em)
     {
         $builder = $this->createFormBuilder();
         $builder->add('Valider', SubmitType::class);
@@ -172,12 +172,11 @@ class AdminController extends AbstractController
 
 
             $listUserTrainings = $training->getUserTrainings();
-            foreach($listUserTrainings as $userTraining)
-            {
+            foreach ($listUserTrainings as $userTraining) {
                 $user = $userTraining->getUser();
                 $subjet = "Test Mail Delete";
                 $msg = "Test msg Delete / Annulation !";
-                $mailer->sendEmail($user,$subjet,$msg);
+                $mailer->sendEmail($user, $subjet, $msg);
             }
 
 
@@ -194,19 +193,52 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/training/list/{training}",name="admin_training_users_list")
      */
-    public function listUsersTraining(EntityManagerInterface $em,Training $training)
+    public function listUsersTraining(EntityManagerInterface $em, Training $training)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
-        
-        $list = $repoUserTraining->findBy([
-            'training' => $training,
-        ],
-        [
-            'dateRegistration' => 'ASC',
-        ]
+
+        $list = $repoUserTraining->findBy(
+            [
+                'training' => $training,
+            ],
+            [
+                'dateRegistration' => 'ASC',
+            ]
         );
 
-        return $this->render('admin/training/list.html.twig', compact('list','training'));
+        $listNoLicence = [];
+        foreach ($list as $haveLicence) {
+            if ($haveLicence->getUser()->getLicence() == false) {
+                $listNoLicence[] = $haveLicence;
+                
+            }
+        }
+
+        return $this->render('admin/training/list.html.twig', compact('list', 'training', 'listNoLicence'));
+    }
+
+    /**
+     * @Route("admin/training/list/noLicence/{training}", name="admin_training_users_list_noLicence")
+     */
+    public function listUserWithoutLicence(EntityManagerInterface $em, Training $training)
+    {
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+
+        $list = $repoUserTraining->findBy(
+            [
+                'training' => $training,
+            ],
+        );
+
+
+        foreach ($list as $haveLicence) {
+            if ($haveLicence->getUser()->getLicence() == false) {
+                $em->remove($haveLicence);
+                $em->flush();
+            }
+        }
+
+        return $this->redirectToRoute('admin_training_users_list', ['training' => $training->getId()]);
     }
 
 
@@ -214,7 +246,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/training/pdf/{training}",name="admin_training_pdf")
      */
-    public function pdfTraining( Training $training, EntityManagerInterface $em, Pdf $snappy)
+    public function pdfTraining(Training $training, EntityManagerInterface $em, Pdf $snappy)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $pdf = $repoUserTraining->findBy([
@@ -224,19 +256,18 @@ class AdminController extends AbstractController
         $train = $training;
 
         //return $this->render('admin/training/pdf.html.twig', compact('pdf', 'train'));
-        
+
         $html = $this->renderView('admin/training/pdf.html.twig', array(
             'pdf' => $pdf,
             'train' => $train
         ));
-        
-        $filename = 'Entrainement-'.$train->getTrainingDate()->format('d-m-y');
+
+        $filename = 'Entrainement-' . $train->getTrainingDate()->format('d-m-y');
 
         return new PdfResponse(
             $snappy->getOutputFromHtml($html),
-            $filename.'.pdf"'
-            
+            $filename . '.pdf"'
+
         );
     }
-
 }
