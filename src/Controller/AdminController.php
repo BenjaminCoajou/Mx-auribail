@@ -16,6 +16,7 @@ use App\Service\Mailer;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Snappy\Pdf;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController
 {
@@ -44,7 +45,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/user/edit/{user}", name="admin_user_edit")
      */
-    public function editUser(Request $request, User $user, EntityManagerInterface $em)
+    public function editUser(Request $request,UserPasswordEncoderInterface $passwordEncoder, User $user, EntityManagerInterface $em)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -52,25 +53,35 @@ class AdminController extends AbstractController
         $roles = $user->getRoles();
         $roleMember = "ROLE_MEMBER";
         $isMember = in_array($roleMember, $roles);
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
             //Si la checkbox "membre" à été cochée
             if($form->get('isMember')->getData())
             {
-                //si l'user n'a pas deja le role ROLE_MEMBER
+                //si l'user n'a pas deja le role ROLE_MEMBER, on le rajoute
                 if (!$isMember) {
                     $roles[] = $roleMember;
                 }
-                
             }
             //si la checkbox n'a pas été cochée 
             else{
-                //si l'user a le role ROLE_MEMBER
+                //si l'user a le role ROLE_MEMBER, on l'enleve
                 if ($isMember) {
                     unset($roles[array_search($roleMember, $roles)]);
                 }
             }
             $user->setRoles($roles);
+
+            //Si un nouveau password a été renseigné
+            if($form->get('plainPassword')->getData())
+            {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+            }
 
             $em->persist($user);
             $em->flush();
