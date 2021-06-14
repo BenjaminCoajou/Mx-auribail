@@ -1,17 +1,41 @@
 <section class="container trainingCards" id="home-training">
-    <div class="row my-5 py-5">
+    <div class="row py-5">
         <div class="col-md-12 col-lg-6 mb-5">
+
             <div class="card border-light h-100 training-home">
+<<<<<<< HEAD
                 <img class="card-img-top" src="assets/img/moto1.jpg" alt="Session Adulte">
+=======
+
+                <div class="card-top">
+                {% if nameList == 'principale'and app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}
+                    <div class="card-check">
+                    <i class="fas fa-check text-white"></i>
+                    </div>  
+                    {% elseif nameList == "d'attente" and app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}       
+                         <div class="card-wait">
+                    <i class="fas fa-stopwatch text-white"></i>
+                    <p class="text-white">Postion: {{userPlace}}e</p>
+                    </div> 
+                {% endif %}
+                    <img class="card-img-top " src="assets/img/moto1.jpg" alt="Session Adulte">
+                </div>
+
+>>>>>>> origin/benjamin
                 <div class="card-body">
                     {% if trainingAdult %}
-                        <h5 class="card-title my-2">Prochaine session adulte le {{ trainingAdult.trainingDate | date('d/m/Y') }}</h5>                  
+                        <h5 class="card-title my-2 d-flex align-content-baseline">Prochaine session adulte le {{ trainingAdult.trainingDate | date('d/m/Y') }}
+                        {% if nameList == 'principale'and app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}
+                            <span class="badge badge-success ml-2">Inscrit</span> 
+                        {% elseif nameList == "d'attente" and app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}       
+                            <span class="badge badge-warning  ml-2">File d'attente</span>
+                        {% endif %}
+                        </h5>                  
                         <p class="card-text">{{ trainingAdult.info }}</p>                      
                     {% else %}
                         <p>Pas d'entrainement de prévu pour le moment.</p>
                     {% endif %}
                     
-                </div>
                 <div>
                     {% if trainingAdult %}
                     <div class="progress mx-2">
@@ -40,14 +64,37 @@
 
                 </div>
             </div>
+                </div>
         </div>
 
         <div class="col-md-12 col-lg-6 mb-5">
         <div class="card border-light h-100 training-home">
+<<<<<<< HEAD
             <img class="card-img-top" src="assets/img/moto2.jpg" alt="Session Enfant">
+=======
+            <div class="card-top">
+                    {% if nameList == 'principale'and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
+                        <div class="card-check">
+                        <i class="fas fa-check text-white"></i>
+                        </div>  
+                        {% elseif nameList == "d'attente" and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}       
+                            <div class="card-wait">
+                        <i class="fas fa-stopwatch text-white"></i>
+                        <p class="text-white">Postion: {{userPlace}}e</p>
+                        </div> 
+                    {% endif %}
+            <img class="card-img-top" src="assets/img/moto2.jpg" alt="Session Enfant">
+            </div>
+>>>>>>> origin/benjamin
             <div class="card-body">
                 {% if trainingChild %}
-                    <h5 class="card-title my-2">Prochaine session enfant le {{ trainingChild.trainingDate | date('d/m/Y') }}</h5>                  
+                    <h5 class="card-title my-2 d-flex align-content-baseline">Prochaine session enfant le {{ trainingChild.trainingDate | date('d/m/Y') }}
+                    {% if nameList == 'principale'and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
+                        <span class="badge badge-success ml-2">Inscrit</span>                        
+                    {% elseif nameList == "d'attente" and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}       
+                        <span class="badge badge-warning  ml-2">File d'attente</span> 
+                    {% endif %}                   
+                    </h5>                  
                     <p class="card-text">{{ trainingChild.info }}</p>                      
                 {% else %}
                     <p>Pas d'entrainement de prévu pour le moment.</p>
