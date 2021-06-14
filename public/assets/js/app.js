@@ -1,29 +1,29 @@
 let app = {
     init: function () {
-        let lastPos = 0;
+        displayByScroll();
+        konamiCode();
+        diaporama();       
+    }
+};
+
+function displayByscroll() {
+  let lastPos = 0;
         window.addEventListener("scroll", function() {
            let pos = this.window.pageYOffset;
            if (pos>lastPos){
                if( document.getElementById('wheel-icon')) {
                  document.getElementById('wheel-icon').style.animation = "title-rotate-right 2s";
                }
-               document.getElementById('ftco-navbar').style.display ='none';
             } else {
               if( document.getElementById('wheel-icon')) {
                 document.getElementById('wheel-icon').style.animation = "title-rotate-left 2s";
-              }
-                document.getElementById('ftco-navbar').style.display ='block';
-            
+              }           
 
            }
            lastPos = pos <= 0 ? 0 : pos;
        });
-
-       konamiCode();
-       diaporama();  
-       
-    }
-};
+  
+}
 
 let secret = "1";
 function konamiCode() {
