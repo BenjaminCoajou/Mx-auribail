@@ -1,55 +1,96 @@
 <body onload="initMap()">
     <!-- Footer -->
-    <footer class="text-center text-lg-start text-white">
+    <footer class="container-fluid text-white pt-5">
+        <div class="row py-5 align-items-center">
+            <!-- Info -->
+            <div class="offset-lg-2 col-md-12 col-lg-4 p-5">
+                <h6 class="text-uppercase fw-bold mb-4"> Contact</h6>
+                <p><i class="fas fa-home"></i> Chemin de petayre, 31190 Auribail</p>
+                <p><i class="fas fa-envelope"></i><a href="http://www.auribailmotosport.com/">
+                    http://www.auribailmotosport.com/</a></p>
+                <p><i class="fas fa-phone"></i> 06.88.93.48.15</p>
+                <p><a href="https://www.facebook.com/auribail.motosport" class="text-reset">
+                <i class="fab fa-facebook-f facebook"></i> </a></p>
+            </div>
+            <div class="col-md-12 col-lg-4 p-5">
+                <div id="map" class="map w-100">
+            </div>
+            
+            </div>
+            <script>
+                function initMap() 
+                {
+                    console.log('lol');
+                    var menuiserie = [43.352, +1.383];
+                        
+                    window.map = new L.map("map").setView(menuiserie, 12);
+                    L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
+                        maxZoom: 16,
+                        minZoom: 10
+                    }).addTo(map);
 
-    <section class="d-flex justify-content-between align-items-center mx-5">
-        <!-- Info -->
-        <div>
-            <h6 class="text-uppercase fw-bold mt-5">
-                Contact
-            </h6>
-            <p><i class="fas fa-home me-3"></i> Chemin de petayre, 31190 Auribail</p>
-            <p>
-                <i class="fas fa-envelope me-3"></i>
-                <a href="http://www.auribailmotosport.com/">
-                http://www.auribailmotosport.com/
+                    var marker = L.marker(menuiserie)
+                    .bindPopup('<h3>Menuiserie Quellard</h3> <p> 9 rue du Champ Guihore </p> <b> <p> 35320 CREVIN </p>')
+                    .addTo(map);
+                }
+            </script>
+            <!-- Maps -->
+        </div>
+        <!-- Copyright -->
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2021 Copyright
+        </div>
+
+        </footer>
+
+</body>
+
+
+
+{# <footer onload="initMap()">
+    <div class="container">
+        <div class="row">
+            <div class="text-white col-4">
+                <h6 class="text-uppercase fw-bold mt-5">
+                    Contact
+                </h6>
+                <p><i class="fas fa-home me-3"></i> Chemin de petayre, 31190 Auribail</p>
+                <p>
+                    <i class="fas fa-envelope me-3"></i>
+                    <a href="http://www.auribailmotosport.com/">
+                    http://www.auribailmotosport.com/
+                    </a>
+                </p>
+                <p><i class="fas fa-phone me-3"></i> 06.88.93.48.15</p>
+            </div>
+            <div class="col-4">
+                <a href="https://www.facebook.com/auribail.motosport" class="me-4 text-reset">
+                    <i class="fab fa-facebook-f facebook"></i>
                 </a>
-            </p>
-            <p><i class="fas fa-phone me-3"></i> 06.88.93.48.15</p>
-        </div>
-        <!-- Info -->
-        <!-- Social Media -->
-        <div>
-        <a href="https://www.facebook.com/auribail.motosport" class="me-4 text-reset">
-            <i class="fab fa-facebook-f facebook"></i>
-        </a>
-        </div>
-        <!-- Social Media -->
-        <!-- Maps -->
-        <div id="map" class="map my-5"></div>
-        <script>
-            function initMap() 
-            {
-                var menuiserie = [43.352, +1.383];
-                    
-                window.map = new L.map("map").setView(menuiserie, 12);
-                L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
-                    maxZoom: 16,
-                    minZoom: 10
-                }).addTo(map);
+            </div>
+            <div class="col-4">
+                <div id="map" class="map my-5"></div>
+            <script>
+                function initMap() 
+                {
+                    console.log('lol');
+                    var menuiserie = [43.352, +1.383];
+                        
+                    window.map = new L.map("map").setView(menuiserie, 12);
+                    L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
+                        maxZoom: 16,
+                        minZoom: 10
+                    }).addTo(map);
 
-                var marker = L.marker(menuiserie)
-                .bindPopup('<h3>Menuiserie Quellard</h3> <p> 9 rue du Champ Guihore </p> <b> <p> 35320 CREVIN </p>')
-                .addTo(map);
-            }
-        </script>
-        <!-- Maps -->
-    </section>
-    <!-- Copyright -->
+                    var marker = L.marker(menuiserie)
+                    .bindPopup('<h3>Menuiserie Quellard</h3> <p> 9 rue du Champ Guihore </p> <b> <p> 35320 CREVIN </p>')
+                    .addTo(map);
+                }
+            </script>
+            </div>
+        </div>
+    </div>
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
         © 2021 Copyright
     </div>
-    <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
-</body>
+</footer> #}
