@@ -1,6 +1,6 @@
 let app = {
     init: function () {
-        displayByscroll();
+        displayByScroll();
         konamiCode();
         diaporama();       
     }
