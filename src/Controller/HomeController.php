@@ -137,9 +137,13 @@ class HomeController extends AbstractController
             $em->flush();
 
             //Send mail when the user get register
-            $subjet = "Test Mail Inscription";
-            $msg = "Test msg inscription / Congratulation vous êtes bien inscrit! ";
-            $mailer->sendEmail($user,$subjet,$msg);
+            $subjet = "[Mx Park] - INSCRIPTION - Entrainement du ".$training->getTrainingDate()->format('d-m-Y');
+            $msg = "Bonjour ".$user->getFirstname().",\n".
+            "Vous êtes bien inscrit au prochain entrainement du ".$training->getTrainingDate()->format('d-m-Y').
+            "\nVeillez renseigner votre numéro de licence avant si ce n'est pas encore le cas, elle est necessaire a la participation.\n\n".
+            "Cordialement,\n".
+            "MX Park - Auribail";
+            $mailer->sendEmail($user, $subjet, $msg);
         }
 
        return $this->redirectToRoute('home',['_fragment' => 'home-training']);         

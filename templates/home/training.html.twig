@@ -25,14 +25,19 @@
                             <a href="{{ path('home_unsub', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
                         {% elseif trainingAdult 
                         and app.user 
-                        and age >= 18                        
-                        and date(trainingAdult.openingRegistrationDate) <= date('now')
-                        %}
-                            <a href="{{ path('home_inscription', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                        and age >= 18 %}
+                            {% if is_granted('ROLE_MEMBER') == false and date(trainingAdult.openingRegistrationDate)|date_modify("+7 day") <= date('now') %}
+                                <a href="{{ path('home_inscription', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                            {% elseif is_granted('ROLE_MEMBER') and date(trainingAdult.openingRegistrationDate) <= date('now') %}
+                                <a href="{{ path('home_inscription', {'training': trainingAdult.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                            {% else %}
+                                <a href="#" class="btn btn-primary disabled">Inscription</a>
+                            {% endif %} 
                         {% else %}
                             <a href="#" class="btn btn-primary disabled">Inscription</a>
                         {% endif %}
                     </div>
+
                 </div>
             </div>
         </div>
@@ -63,12 +68,16 @@
                             <a href="{{ path('home_unsub', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
                         {% elseif trainingChild 
                         and app.user 
-                        and age < 18 
-                        and date(trainingChild.openingRegistrationDate) <= date('now')
-                        %}
-                            <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                        and age < 18 %}
+                            {% if is_granted('ROLE_MEMBER') == false and date(trainingChild.openingRegistrationDate)|date_modify("+7 day") <= date('now') %}
+                                <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                            {% elseif is_granted('ROLE_MEMBER') and date(trainingChild.openingRegistrationDate) <= date('now') %}
+                                <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                            {% else %}
+                                <a href="#" class="btn btn-primary disabled">Inscription</a>
+                            {% endif %} 
                         {% else %}
-                            <a href="#" class="btn btn-primary disabled">Inscription</a>
+                            <a href="#" class="btn btn-primary disabled">Inscription</a> 
                         {% endif %}
                     </div>
                 </div>
