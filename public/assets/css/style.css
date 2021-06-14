@@ -366,7 +366,6 @@ color: #ff0000; }
      
  }
 
-
  /* Informations personnelles */
 
  #table-info-perso > div{
@@ -401,4 +400,20 @@ color: #ff0000; }
     justify-content: center;
     align-items: center;
     font-size: 5rem;
+ }
+ /* Footer */
+ footer {
+     background-color: #252525 !important;
+ }
+
+ .facebook {
+     font-size: 3rem;
+ }
+
+ /* Map */
+
+ .map {
+    height: 300px;
+    width: 300px;
+    border-radius: 30px;
 }
