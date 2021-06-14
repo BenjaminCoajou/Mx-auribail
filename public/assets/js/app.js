@@ -6,7 +6,7 @@ let app = {
     }
 };
 
-function displayByscroll() {
+function displayByScroll() {
   let lastPos = 0;
         window.addEventListener("scroll", function() {
            let pos = this.window.pageYOffset;
