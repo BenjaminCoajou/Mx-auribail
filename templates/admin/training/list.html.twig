@@ -5,7 +5,7 @@
 
 {% block body %}
   <div class="container">
-    <h2 class="my-3">Inscrits pour la session
+    <h2 class="my-3 mt-6">Inscrits pour la session
       {% if training.adult == 1 %}
         adulte
       {% else %}
@@ -23,7 +23,7 @@
           <th scope="col">Email</th>
           <th scope="col">License</th>
           <th scope="col">Telephone</th>
-
+          <th scope="col">Membre</th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +38,11 @@
             <td>{{element.user.email}}</td>
             <td>{{element.user.licence}}</td>
             <td>{{element.user.phone}}</td>
+            {% if "ROLE_MEMBER" in element.user.roles %} 
+              <td class="text-center text-success"><i class="fas fa-check"></i></td>
+            {% else %}
+              <td class="text-center text-danger"><i class="fas fa-times"></i></td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>
@@ -46,6 +51,14 @@
     {% if list %}
     <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
       <i class="fas fa-file-pdf"></i>
+    </a>
+    <a href="{{ path('admin_user_no_licence_mail', {'training': training.id}) }}" class="btn btn-warning text-white">
+      <i class="fas fa-envelope"></i>
+    </a>
+    {% endif %}
+    {% if listNoLicence %}
+      <a href="{{ path('admin_training_users_list_noLicence', {'training': training.id}) }}" class="btn btn-danger">
+      <i class="fas fa-trash"></i>
     </a>
     {% endif %}
   </div>

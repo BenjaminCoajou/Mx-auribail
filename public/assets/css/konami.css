@@ -1,0 +1,64 @@
+body {
+    background: rgb(255,0,241);
+    /*background: linear-gradient(135deg, rgba(255,0,241,1) 0%, rgba(175,118,38,1) 50%, rgba(26,233,245,1) 100%);*/
+    background: linear-gradient(135deg, rgba(255,0,241,1) 0%, rgba(45,26,44,1) 40%, rgba(20,37,39,1) 60%, rgba(26,233,245,1) 100%);
+}
+
+h1 {
+    color: white;
+}
+
+.dev-name {
+    color: #f4d7f7;
+    box-shadow: 
+        0 0 8px #fff,
+        inset 0 0 8px #fff,
+        0 0 32px #ff00f1,
+        inset 0 0 32px #ff00f1,
+        0 0 64px #ff00f1,
+        inset 0 0 64px #ff00f1;
+    font-family: 'Monoton', cursive;
+    font-size: 8rem;
+    animation: turnOn 3s;
+}
+
+.dev-box {
+    text-shadow: 
+    0 0 6px #ffd6d6,
+    0 0 6px #ffd6d6,
+    0 0 16px #1ae9f5,
+    0 0 32px #1ae9f5,
+    0 0 64px #1ae9f5,
+    0 0 90px #1ae9f5;
+}
+
+@media (max-width: 1440px){
+    .dev-name {
+        font-size: 6rem !important;
+    }
+}
+
+
+@media (max-width: 1024px){
+    .dev-name {
+        font-size: 4rem !important;
+    }
+}
+
+@media (max-width: 780px){
+    .dev-name {
+        font-size: 2.5rem !important;
+    }
+}
+
+@media (max-width: 540px){
+    .dev-name {
+        font-size:1.5rem !important;
+    }
+}
+
+@keyframes turnOn {
+    0%,90% {
+        text-shadow: none;
+    }
+}

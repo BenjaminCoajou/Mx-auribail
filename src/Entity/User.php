@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -195,7 +196,7 @@ class User implements UserInterface
         return $this->licence;
     }
 
-    public function setLicence(string $licence): self
+    public function setLicence(?string $licence = null): self
     {
         $this->licence = $licence;
 
@@ -207,7 +208,7 @@ class User implements UserInterface
         return $this->phone;
     }
 
-    public function setPhone(?string $phone): self
+    public function setPhone(?string $phone = null): self
     {
         $this->phone = $phone;
 

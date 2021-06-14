@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}
-      <link rel="stylesheet" href="../../../public/assets/css/style.css">
-{% endblock %}
+
 {% block body %}
   <div class="container">
   <h2 class="my-3"> Edition de mes informations personnelles </h2>
-    {{form(form)}}
+  {{ form_start(form) }}
+      {{ form_row(form.email) }}
+      {{ form_row(form.plainPassword) }}
+      {{ form_row(form.firstName) }}
+      {{ form_row(form.lastName) }}
+      {{ form_row(form.birthday) }}
+      {{ form_row(form.licence) }}
+      {{ form_row(form.phone) }}
+      <div hidden>
+        {{ form_row(form.isMember) }}
+      </div>
+  
+  {{ form_end(form) }}
     <a href="{{ path('user', {'id' : app.user.id}) }}" class="btn btn-danger mb-3">Retour</a>
     </div>
   {% endblock %}

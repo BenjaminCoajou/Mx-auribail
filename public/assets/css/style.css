@@ -2,10 +2,14 @@ body{
     background-color:#f8f9fa ;
 }
 .home {
-    background-image: url("../img/motocross-1.jpg") !important;
     background-position: center;
+    background-image: url("../img/motocross-1.jpg");
     background-size: cover;
     min-height: 100vh;
+}
+
+.mt-6 {
+    margin-top: 5rem !important;
 }
 
 .title {
@@ -33,9 +37,11 @@ body{
 }
 
 
-
+/* navBar */
 .navbar {
-    position: relative;
+    position: fixed;
+    top:0px;
+    width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -326,3 +332,31 @@ color: #ff0000; }
     font-size: 1.1em;
     text-shadow: black 0 0 3px;
 }
+.training-home {
+    transition: all 1s ease-out;
+}
+
+.training-home:hover {
+    position: relative;
+    box-shadow: 25px 25px 12px rgba(48, 46, 46, 0.856);
+}
+
+.wheel-icon {
+    max-width: 10% !important;
+    margin-top: 50vh;
+    filter: drop-shadow(0px 0px 5px rgb(0 0 0));
+}
+
+
+@keyframes title-rotate-right {
+   100% {
+       transform: rotate(360deg);
+    }     
+}
+
+@keyframes title-rotate-left {
+    0% {
+        transform: rotate(360deg);
+     } 
+     
+ }

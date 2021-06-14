@@ -4,6 +4,9 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,9 +27,6 @@ class UserType extends AbstractType
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
@@ -34,7 +34,8 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-                'label' => 'Mot de passe'
+                'label' => 'Mot de passe',
+                'required' =>false,
             ])
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom'
@@ -46,11 +47,22 @@ class UserType extends AbstractType
                 'years' => range(1950, date('Y')),
                 'label' => 'Anniversaire'
             ])
-            ->add('licence')
+            ->add('licence', TextType::class, [
+                'label' => 'Licence',
+                'required' =>false,
+            ])
             ->add('phone', TextType::class, [
-                'label' => 'Téléphone'
+                'label' => 'Téléphone',
+                'required' =>false,
+            ]);
+
+            $builder->add('isMember', CheckboxType::class, [
+                'label' => 'Membre',
+                'mapped' => false,
+                'required' =>false,
             ])
             ->add('Envoyer', SubmitType::class);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

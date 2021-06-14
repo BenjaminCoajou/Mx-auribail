@@ -16,6 +16,7 @@ use App\Service\Mailer;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Snappy\Pdf;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController
 {
@@ -32,22 +33,65 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/users", name="list_users")
+     */
+    public function listUsers(EntityManagerInterface $em): Response
+    {
+        $repoUser = $em->getRepository(User::class);
+        $users = $repoUser->findAll();
+        return $this->render('admin/user/list.html.twig', compact('users'));
+    }
+
+    /**
      * @Route("/admin/user/edit/{user}", name="admin_user_edit")
      */
-    public function editUser(Request $request, User $user, EntityManagerInterface $em)
+    public function editUser(Request $request,UserPasswordEncoderInterface $passwordEncoder, User $user, EntityManagerInterface $em)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
+        $roles = $user->getRoles();
+        $roleMember = "ROLE_MEMBER";
+        $isMember = in_array($roleMember, $roles);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            //Si la checkbox "membre" à été cochée
+            if($form->get('isMember')->getData())
+            {
+                //si l'user n'a pas deja le role ROLE_MEMBER, on le rajoute
+                if (!$isMember) {
+                    $roles[] = $roleMember;
+                }
+            }
+            //si la checkbox n'a pas été cochée 
+            else{
+                //si l'user a le role ROLE_MEMBER, on l'enleve
+                if ($isMember) {
+                    unset($roles[array_search($roleMember, $roles)]);
+                }
+            }
+            $user->setRoles($roles);
+
+            //Si un nouveau password a été renseigné
+            if($form->get('plainPassword')->getData())
+            {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+            }
+
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('admin');
         }
-
+        
         return $this->render('admin/user/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'isMember' => $isMember
         ]);
     }
 
@@ -126,7 +170,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/training/delete/{training}",name="admin_training_delete")
      */
-    public function deleteTraining(Mailer $mailer,Request $request, Training $training, EntityManagerInterface $em)
+    public function deleteTraining(Mailer $mailer, Request $request, Training $training, EntityManagerInterface $em)
     {
         $builder = $this->createFormBuilder();
         $builder->add('Valider', SubmitType::class);
@@ -139,12 +183,11 @@ class AdminController extends AbstractController
 
 
             $listUserTrainings = $training->getUserTrainings();
-            foreach($listUserTrainings as $userTraining)
-            {
+            foreach ($listUserTrainings as $userTraining) {
                 $user = $userTraining->getUser();
                 $subjet = "Test Mail Delete";
                 $msg = "Test msg Delete / Annulation !";
-                $mailer->sendEmail($user,$subjet,$msg);
+                $mailer->sendEmail($user, $subjet, $msg);
             }
 
 
@@ -161,19 +204,80 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/training/list/{training}",name="admin_training_users_list")
      */
-    public function listUsersTraining(EntityManagerInterface $em,Training $training)
+    public function listUsersTraining(EntityManagerInterface $em, Training $training)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
-        
-        $list = $repoUserTraining->findBy([
-            'training' => $training,
-        ],
-        [
-            'dateRegistration' => 'ASC',
-        ]
+
+        $list = $repoUserTraining->findBy(
+            [
+                'training' => $training,
+            ],
+            [
+                'dateRegistration' => 'ASC',
+            ]
         );
 
-        return $this->render('admin/training/list.html.twig', compact('list','training'));
+        $listNoLicence = [];
+        foreach ($list as $haveLicence) {
+            if ($haveLicence->getUser()->getLicence() == false) {
+                $listNoLicence[] = $haveLicence;
+                
+            }
+        }
+
+        return $this->render('admin/training/list.html.twig', compact('list', 'training', 'listNoLicence'));
+    }
+
+    /**
+     * @Route("admin/training/list/noLicence/{training}", name="admin_training_users_list_noLicence")
+     */
+    public function listUserWithoutLicence(EntityManagerInterface $em, Training $training)
+    {
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+
+        $list = $repoUserTraining->findBy(
+            [
+                'training' => $training,
+            ],
+        );
+
+
+        foreach ($list as $haveLicence) {
+            if ($haveLicence->getUser()->getLicence() == false) {
+                $em->remove($haveLicence);
+                $em->flush();
+            }
+        }
+
+        return $this->redirectToRoute('admin_training_users_list', ['training' => $training->getId()]);
+    }
+
+    /**
+     * @Route("admin/training/list/noLicence/mail/{training}", name="admin_user_no_licence_mail")
+     */
+    public function sendMailToUserWithoutLicence(Mailer $mailer, EntityManagerInterface $em, Training $training)
+    {
+        $repoUserTraining = $em->getRepository(UserTraining::class);
+        $list = $repoUserTraining->findBy(
+            [
+                'training' => $training,
+            ],
+        );
+
+        foreach ($list as $element) {
+            $user = $element->getUser();
+            if ($user->getLicence() == false) {
+                $subjet = "[Mx Park] - WARNING - Entrainement du ".$training->getTrainingDate()->format('d-m-Y');
+                $msg = "Bonjour ".$user->getFirstname().",\n".
+                "Vous n'avez pas encore renseigné votre numéro de licence, or elle est necessaire pour participer au prochain entrainement du ".$training->getTrainingDate()->format('d-m-Y').
+                "\nVeillez la renseignée sous les plus bref delais sous peine de désinscription à la session d'entrainement.\n\n".
+                "Cordialement,\n".
+                "MX Park - Auribail";
+                $mailer->sendEmail($user, $subjet, $msg);
+            }
+        }
+
+        return $this->redirectToRoute('admin_training_users_list', ['training' => $training->getId()]);
     }
 
 
@@ -181,7 +285,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/training/pdf/{training}",name="admin_training_pdf")
      */
-    public function pdfTraining( Training $training, EntityManagerInterface $em, Pdf $snappy)
+    public function pdfTraining(Training $training, EntityManagerInterface $em, Pdf $snappy)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $pdf = $repoUserTraining->findBy([
@@ -191,19 +295,18 @@ class AdminController extends AbstractController
         $train = $training;
 
         //return $this->render('admin/training/pdf.html.twig', compact('pdf', 'train'));
-        
+
         $html = $this->renderView('admin/training/pdf.html.twig', array(
             'pdf' => $pdf,
             'train' => $train
         ));
-        
-        $filename = 'Entrainement-'.$train->getTrainingDate()->format('d-m-y');
+
+        $filename = 'Entrainement-' . $train->getTrainingDate()->format('d-m-y');
 
         return new PdfResponse(
             $snappy->getOutputFromHtml($html),
-            $filename.'.pdf"'
-            
+            $filename . '.pdf"'
+
         );
     }
-
 }
