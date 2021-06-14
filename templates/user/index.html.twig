@@ -4,33 +4,42 @@
 
 {% block body %}
 
-<div class="container-xl d-flex flex-column align-items-center justify-content-center">
-  <h2 class="my-3"> Informations personnelles </h2>
-  <a class="btn btn-primary my-3" href="{{ path('home') }}"> Accueil </a>
-  <div class="row col-6 mt-3">
-      <div class="card text-white bg-dark mb-3" style="width: 100%">
-        <div class="card-header" style="font-size:2rem ">Mes informations</div>
-        <div class="card-body">
 
-          <h5 class="card-title"> Adresse e-mail </h5>
-          <p> {{user.email}} </p>
-          <h5 class="card-title"> Prénom </h5>
-          <p> {{user.firstName}} </p>
-          <h5 class="card-title"> Nom </h5>
-          <p> {{user.lastName}} </p>
-          <h5 class="card-title"> Anniversaire </h5>
-          <p> {{user.birthday | date("d/m/Y")}} </p>
-          <h5 class="card-title"> Numéro de license </h5>
-          <p> {{user.licence}} </p>
-          <h5 class="card-title"> Numéro de téléphone </h5>
-          <p> {{user.phone}} </p>
-        
-          <a href="{{ path('user_edit', {'user': user.id}) }}" class="btn btn-primary">
-            <i class="fas fa-edit"></i>
-          </a>
+<div class="container">
+  <div class="row text-center">
+    <h2 class="my-5 mx-auto">Informations personnelles</h2>
+  </div>
+  
+  <div class="row">
+    <div class="offset-lg-3 col-lg-6">
+      <a class="btn btn-primary mb-3" href="{{ path('home') }}">Retour</a>
+      <div class="container bg-dark text-white px-5 py-5 mb-5">
+        <div class="row">
+          <div class="col-12 h2 mt-2 mb-5">Mes informations <a href="{{ path('user_edit', {'user': user.id}) }}" class="ml-3 btn btn-primary">
+            <i class="fas fa-edit"></i></a>
+          </div>
+        </div>
+        <div class="row" id="table-info-perso">
+          {% if is_granted('ROLE_MEMBER') %}
+            <div class="col-12 text-success h6">Membre du Mx Park</div>
+          {% endif %}
+          <div class="col-6 h5">E-mail</div>
+          <div class="col-6">{{user.email}}</div>
+          <div class="col-6 h5">Prénom</div>
+          <div class="col-6">{{user.firstName}}</div>
+          <div class="col-6 h5">Nom</div>
+          <div class="col-6">{{user.lastName}}</div>
+          <div class="col-6 h5">Date de naissance</div>
+          <div class="col-6">{{user.birthday | date("d/m/Y")}}</div>
+          <div class="col-6 h5">N° Licence</div>
+          <div class="col-6">{{user.licence}}</div>
+          <div class="col-6 h5">N° Téléphone</div>
+          <div class="col-6">{{user.phone}}</div>
         </div>
       </div>
+
     </div>
   </div>
+</div>
 
 {% endblock %}
