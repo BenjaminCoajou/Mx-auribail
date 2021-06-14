@@ -4,48 +4,42 @@
 
 {% block body %}
 
-<div class="container-lg d-flex flex-column align-items-center justify-content-center">
-  <h2 class="my-5">Informations personnelles</h2>
-  <a class="btn btn-primary" href="{{ path('home') }}">Retour</a>
-  <div class="row col-6 mt-3">
-      <div class="card text-white bg-dark mb-3" style="width: 100%">
-        <h3 class="card-header">Mes informations</h3>
-        <div class="card-body">
-        {% if is_granted('ROLE_MEMBER') %}
-          <div class="font-italic text-success">Membre du Mx Park</div>
-        {% endif %}
-          <div class="card-title h5">E-mail</div>
-          <p>{{user.email}}</p>
-          <div class="card-title h5">Prénom</div>
-          <p>{{user.firstName}}</p>
-          <div class="card-title h5">Nom</div>
-          <p>{{user.lastName}}</p>
-          <div class="card-title h5">Anniversaire</div>
-          <p>{{user.birthday | date("d/m/Y")}}</p>
-          <div class="card-title h5">Numéro de licence</div>
-          <p>{{user.licence}}</p>
-          <div class="card-title h5">Numéro de téléphone</div>
-          <p>{{user.phone}}</p>
-        </div>
-      </div>
-    </div>
+
+<div class="container">
+  <div class="row text-center">
+    <h2 class="my-5 mx-auto">Informations personnelles</h2>
   </div>
-
-
-  <div class="container">
-    <div class="row">
-      <h2 class="my-5">Informations personnelles</h2>
-    </div>
-    <div class="row">
-      <div class="offset-lg-3 col-lg-6">
-        <div class="container">
-          <div class="row">
-            <h3 class="card-header">Mes informations</h3>
+  
+  <div class="row">
+    <div class="offset-lg-3 col-lg-6">
+      <a class="btn btn-primary mb-3" href="{{ path('home') }}">Retour</a>
+      <div class="container bg-dark text-white px-5 py-5 mb-5">
+        <div class="row">
+          <div class="col-12 h2 mt-2 mb-5">Mes informations <a href="{{ path('user_edit', {'user': user.id}) }}" class="ml-3 btn btn-primary">
+            <i class="fas fa-edit"></i></a>
           </div>
         </div>
-
+        <div class="row" id="table-info-perso">
+          {% if is_granted('ROLE_MEMBER') %}
+            <div class="col-12 text-success h6">Membre du Mx Park</div>
+          {% endif %}
+          <div class="col-6 h5">E-mail</div>
+          <div class="col-6">{{user.email}}</div>
+          <div class="col-6 h5">Prénom</div>
+          <div class="col-6">{{user.firstName}}</div>
+          <div class="col-6 h5">Nom</div>
+          <div class="col-6">{{user.lastName}}</div>
+          <div class="col-6 h5">Date de naissance</div>
+          <div class="col-6">{{user.birthday | date("d/m/Y")}}</div>
+          <div class="col-6 h5">N° Licence</div>
+          <div class="col-6">{{user.licence}}</div>
+          <div class="col-6 h5">N° Téléphone</div>
+          <div class="col-6">{{user.phone}}</div>
+        </div>
       </div>
+
     </div>
   </div>
+</div>
 
 {% endblock %}

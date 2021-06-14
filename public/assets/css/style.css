@@ -361,3 +361,10 @@ color: #ff0000; }
      } 
      
  }
+
+
+ /* Informations personnelles */
+
+ #table-info-perso > div{
+     margin-bottom: 1.5em;
+ }
