@@ -29,7 +29,8 @@ class AdminController extends AbstractController
         $repoTraining = $em->getRepository(Training::class);
         $users = $repoUser->findAll();
         $trainings = $repoTraining->findAll();
-        return $this->render('admin/index.html.twig', compact('users', 'trainings'));
+        $members = $repoUser->findByRole('ROLE_MEMBER');
+        return $this->render('admin/index.html.twig', compact('users', 'trainings', 'members'));
     }
 
     /**
