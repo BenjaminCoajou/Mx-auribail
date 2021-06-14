@@ -387,6 +387,7 @@ color: #ff0000; }
     height: 300px;
     width: 300px;
     border-radius: 30px;
+ }
  .card-top {
      position: relative;
      display: block;
