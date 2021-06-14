@@ -182,19 +182,20 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted()) {
 
-
             $listUserTrainings = $training->getUserTrainings();
             foreach ($listUserTrainings as $userTraining) {
                 $user = $userTraining->getUser();
-                $subjet = "Test Mail Delete";
-                $msg = "Test msg Delete / Annulation !";
+                $subjet = "[Mx Park] - ANNULATION - Entrainement du ".$training->getTrainingDate()->format('d-m-Y');
+                $msg = "Bonjour ".$user->getFirstname().",\n".
+                "L'entrainement du ".$training->getTrainingDate()->format('d-m-Y')." est annulé.\n".
+                "Nous nous excusons pour la gêne occasionnée.\n\n".
+                "Cordialement,\n".
+                "MX Park - Auribail";
                 $mailer->sendEmail($user, $subjet, $msg);
             }
 
-
             $em->remove($training);
             $em->flush();
-
 
             return $this->redirectToRoute('admin');
         }
@@ -232,7 +233,7 @@ class AdminController extends AbstractController
     /**
      * @Route("admin/training/list/noLicence/{training}", name="admin_training_users_list_noLicence")
      */
-    public function listUserWithoutLicence(EntityManagerInterface $em, Training $training)
+    public function listUserWithoutLicence(Mailer $mailer, EntityManagerInterface $em, Training $training)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
 
@@ -242,11 +243,21 @@ class AdminController extends AbstractController
             ],
         );
 
+        foreach ($list as $element) {
+            $user = $element->getUser();
+            if ($user->getLicence() == false) {
 
-        foreach ($list as $haveLicence) {
-            if ($haveLicence->getUser()->getLicence() == false) {
-                $em->remove($haveLicence);
+                //suppression de l'inscription
+                $em->remove($element);
                 $em->flush();
+                //envoi du mail pour prevenir de la desinscription
+                $subjet = "[Mx Park] - Désinscription entrainement du ".$training->getTrainingDate()->format('d-m-Y');
+                $msg = "Bonjour ".$user->getFirstname().",\n".
+                "Vous n'avez pas renseigné votre numéro de licence, or elle est necessaire pour participer a l'entrainement du ".$training->getTrainingDate()->format('d-m-Y')."\n".
+                "Votre inscription est donc annulée.\n\n".
+                "Cordialement,\n".
+                "MX Park - Auribail";
+                $mailer->sendEmail($user, $subjet, $msg);
             }
         }
 
@@ -267,7 +278,10 @@ class AdminController extends AbstractController
 
         foreach ($list as $element) {
             $user = $element->getUser();
+
+            //si l'utilisateur n'a pas de licence
             if ($user->getLicence() == false) {
+                //envoi de mail pour avertir
                 $subjet = "[Mx Park] - WARNING - Entrainement du ".$training->getTrainingDate()->format('d-m-Y');
                 $msg = "Bonjour ".$user->getFirstname().",\n".
                 "Vous n'avez pas encore renseigné votre numéro de licence, or elle est necessaire pour participer au prochain entrainement du ".$training->getTrainingDate()->format('d-m-Y').
