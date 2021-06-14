@@ -24,9 +24,9 @@ class TrainingController extends AbstractController
     }
 
     /**
-     * @Route("/training/{id}", name="training")
+     * @Route("/history/{user}", name="history")
      */
-    public function index(EntityManagerInterface $em, User $user): Response
+    public function history(EntityManagerInterface $em, User $user): Response
     {
         $repository = $em->getRepository(UserTraining::class);
 
@@ -35,6 +35,6 @@ class TrainingController extends AbstractController
             ]
         );
 
-        return $this->render('training/index.html.twig', compact('userTraining'));
+        return $this->render('training/history.html.twig', compact('userTraining'));
     }
 }
