@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <p class="alert alert-danger">Êtes-vous sur de vouloir supprimer cette entrainement ?</p>
-    {{ form(form)}} - <a href="{{ path('admin') }}">Annuler</a>
+    <div class="container-xl mt-3">
+        <p class="alert alert-danger">Êtes-vous sur de vouloir supprimer cette entrainement ?</p>
+        {{ form(form)}}
+        <a class="btn btn-danger" href="{{ path('admin') }}">Annuler</a>
+    </div>
 {% endblock %}

@@ -39,7 +39,8 @@ body{
 
 /* navBar */
 .navbar {
-    position: fixed;
+    position: -webkit-sticky;
+    position: sticky;
     top:0px;
     width: 100%;
     display: -webkit-box;
