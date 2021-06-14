@@ -366,9 +366,25 @@ color: #ff0000; }
      
  }
 
-
  /* Informations personnelles */
 
  #table-info-perso > div{
      margin-bottom: 1.5em;
  }
+
+ /* Footer */
+ footer {
+     background-color: #252525 !important;
+ }
+
+ .facebook {
+     font-size: 3rem;
+ }
+
+ /* Map */
+
+ .map {
+    height: 300px;
+    width: 300px;
+    border-radius: 30px;
+}
