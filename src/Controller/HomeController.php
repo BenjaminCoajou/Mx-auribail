@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\UserTraining;
 use App\Service\Mailer;
 use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -131,7 +132,7 @@ class HomeController extends AbstractController
             $userTraining = new UserTraining;
             $userTraining->setTraining($training);
             $userTraining->setUser($user);
-            $userTraining->setDateRegistration(new DateTime('NOW'));
+            $userTraining->setDateRegistration(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
 
             $em->persist($userTraining);
             $em->flush();
