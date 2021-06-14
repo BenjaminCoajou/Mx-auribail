@@ -5,30 +5,45 @@
 {% block body %}
 
 <div class="container-lg d-flex flex-column align-items-center justify-content-center">
-  <h2 class="my-3"> Informations personnelles </h2>
-  <a class="btn btn-primary my-3" href="{{ path('home') }}"> Accueil </a>
+  <h2 class="my-5">Informations personnelles</h2>
+  <a class="btn btn-primary" href="{{ path('home') }}">Retour</a>
   <div class="row col-6 mt-3">
       <div class="card text-white bg-dark mb-3" style="width: 100%">
-        <div class="card-header" style="font-size:2rem ">Mes informations</div>
+        <h3 class="card-header">Mes informations</h3>
         <div class="card-body">
-
-          <h5 class="card-title"> Adresse e-mail </h5>
-          <p> {{user.email}} </p>
-          <h5 class="card-title"> Prénom </h5>
-          <p> {{user.firstName}} </p>
-          <h5 class="card-title"> Nom </h5>
-          <p> {{user.lastName}} </p>
-          <h5 class="card-title"> Anniversaire </h5>
-          <p> {{user.birthday | date("d/m/Y")}} </p>
-          <h5 class="card-title"> Numéro de license </h5>
-          <p> {{user.licence}} </p>
-          <h5 class="card-title"> Numéro de téléphone </h5>
-          <p> {{user.phone}} </p>
-        
-          <a href="{{ path('user_edit', {'user': user.id}) }}" class="btn btn-primary">
-            <i class="fas fa-edit"></i>
-          </a>
+        {% if is_granted('ROLE_MEMBER') %}
+          <div class="font-italic text-success">Membre du Mx Park</div>
+        {% endif %}
+          <div class="card-title h5">E-mail</div>
+          <p>{{user.email}}</p>
+          <div class="card-title h5">Prénom</div>
+          <p>{{user.firstName}}</p>
+          <div class="card-title h5">Nom</div>
+          <p>{{user.lastName}}</p>
+          <div class="card-title h5">Anniversaire</div>
+          <p>{{user.birthday | date("d/m/Y")}}</p>
+          <div class="card-title h5">Numéro de licence</div>
+          <p>{{user.licence}}</p>
+          <div class="card-title h5">Numéro de téléphone</div>
+          <p>{{user.phone}}</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <h2 class="my-5">Informations personnelles</h2>
+    </div>
+    <div class="row">
+      <div class="offset-lg-3 col-lg-6">
+        <div class="container">
+          <div class="row">
+            <h3 class="card-header">Mes informations</h3>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
