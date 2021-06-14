@@ -2,20 +2,24 @@
 
 {% block body %}
   <div class="container">
-  <h2 class="my-3"> Edition de mes informations personnelles </h2>
-  {{ form_start(form) }}
-      {{ form_row(form.email) }}
-      {{ form_row(form.plainPassword) }}
-      {{ form_row(form.firstName) }}
-      {{ form_row(form.lastName) }}
-      {{ form_row(form.birthday) }}
-      {{ form_row(form.licence) }}
-      {{ form_row(form.phone) }}
-      <div hidden>
-        {{ form_row(form.isMember) }}
+    <div class="row my-3">
+      <div class="col-sm-12 offset-lg-3 col-lg-6">
+        <h2 class="my-5">Modification des informations</h2>
+        <a href="{{ path('user', {'id' : app.user.id}) }}" class="btn btn-primary mb-3">Retour</a>
+        {{ form_start(form) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.birthday) }}
+            {{ form_row(form.licence) }}
+            {{ form_row(form.phone) }}
+            {# MOCHE #}
+            <div hidden>
+              {{ form_row(form.isMember) }}
+            </div>
+        {{ form_end(form) }}
       </div>
-  
-  {{ form_end(form) }}
-    <a href="{{ path('user', {'id' : app.user.id}) }}" class="btn btn-danger mb-3">Retour</a>
     </div>
-  {% endblock %}
+  </div>
+{% endblock %}
