@@ -1,6 +1,6 @@
 let app = {
     init: function () {
-        displayByScroll();
+        displayByscroll();
         konamiCode();
         diaporama();       
     }
@@ -12,7 +12,7 @@ function displayByscroll() {
            let pos = this.window.pageYOffset;
            if (pos>lastPos){
                if( document.getElementById('wheel-icon')) {
-                 document.getElementById('wheel-icon').style.animation = "title-rotate-right 2s";
+                  document.getElementById('wheel-icon').style.animation = "title-rotate-right 2s";
                }
             } else {
               if( document.getElementById('wheel-icon')) {
