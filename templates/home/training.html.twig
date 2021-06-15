@@ -6,13 +6,20 @@
                 <div class="card-top">
                 {% if nameList == 'principale'and app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}
                     <div class="card-check">
-                    <i class="fas fa-check text-white"></i>
+                        <i class="fas fa-check text-white"></i>
                     </div>  
                     {% elseif nameList == "d'attente" and app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}       
                          <div class="card-wait">
-                    <i class="fas fa-stopwatch text-white"></i>
-                    <p class="text-white">Postion: {{userPlace}}e</p>
-                    </div> 
+                            <i class="fas fa-stopwatch text-white"></i>
+                            <p class="text-white text-position-waitinglist">{{userPlace}}{% if userPlace == 1 %}er
+                                {% elseif userPlace == 2 %}
+                                    nd
+                                {% else %}
+                                    ème
+                                {% endif %}
+                                    dans la liste d'attente
+                            </p>
+                        </div> 
                 {% endif %}
                     <img class="card-img-top " src="assets/img/moto1.jpg" alt="Session Adulte">
                 </div>
@@ -71,7 +78,14 @@
                         {% elseif nameList == "d'attente" and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}       
                             <div class="card-wait">
                                 <i class="fas fa-stopwatch text-white"></i>
-                                <p class="text-white">Postion: {{userPlace}}e</p>
+                                <p class="text-white text-position-waitinglist">{{userPlace}}{% if userPlace == 1 %}er
+                                    {% elseif userPlace == 2 %}
+                                        nd
+                                    {% else %}
+                                        ème
+                                    {% endif %}
+                                        dans la liste d'attente
+                                </p>
                             </div> 
                         {% endif %}
                 <img class="card-img-top" src="assets/img/moto2.jpg" alt="Session Enfant">

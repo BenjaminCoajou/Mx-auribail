@@ -2,8 +2,16 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="my-3 mt-6"> Edition d'un entrainement </h2>
-        {{ form(form)}}
-        <a class="btn btn-danger" href="{{ path('admin') }}">Annuler</a>
+        <div class="row my-3">
+            <div class="col-sm-12 offset-lg-3 col-lg-6">
+                <h2> Edition d'un entrainement </h2>
+                <a class="btn btn-primary" href="{{ path('admin') }}">Retour</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 offset-lg-3 col-lg-6">
+                {{ form(form)}}
+            </div>  
+        </div>
     </div>
 {% endblock %}

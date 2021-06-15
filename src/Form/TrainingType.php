@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,13 +21,13 @@ class TrainingType extends AbstractType
                 'label' => 'Date d\'entrainement'
             ])
             ->add('slot', NumberType::class, [
-                'label' => 'Places'
+                'label' => 'Nombre de places'
             ])
-            ->add('info', TextType::class, [
+            ->add('info', TextareaType::class, [
                 'label' => 'Informations'
             ])
             ->add('openingRegistrationDate', DateType::class, [
-                'label' => 'Date d\'enregistrement'
+                'label' => 'Date d\'ouverture des inscriptions'
             ])
             ->add('adult', null, [
                 'attr' => array('checked' => 'checked'),

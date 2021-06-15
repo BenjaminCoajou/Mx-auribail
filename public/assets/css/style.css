@@ -431,3 +431,7 @@ color: #ff0000; }
  .link-site:hover {
      color: #f00;
  }
+
+.text-position-waitinglist{
+    font-size: 0.5em;
+}
