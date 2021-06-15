@@ -419,3 +419,7 @@ color: #ff0000; }
     width: 300px;
     border-radius: 10px;
 }
+
+.text-position-waitinglist{
+    font-size: 0.5em;
+}
