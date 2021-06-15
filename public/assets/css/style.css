@@ -428,15 +428,24 @@ color: #ff0000; }
      color: white;
  }
 
+<<<<<<< HEAD
  .map {
     height: 300px;
     width: 300px;
     border-radius: 10px;
 }
+=======
+ .link-site:hover {
+     color: #f00;
+ }
+>>>>>>> origin/benjamin
 
 .text-position-waitinglist{
     font-size: 0.5em;
 }
+<<<<<<< HEAD
  .link-site:hover {
      color: #f00;
 }
+=======
+>>>>>>> origin/benjamin
