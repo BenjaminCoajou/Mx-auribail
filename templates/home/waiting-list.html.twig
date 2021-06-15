@@ -1,7 +1,11 @@
 {% if app.user and userPlace %}
-<section class="jumbotron jumbotron-fluid bg-primary text-white">
-  <div class="container">
-    <h3 class="display-4 text-bold">Vous êtes {{userPlace}}e dans la liste {{ nameList }} </h3>
+<section class="container text-white mt-3">
+  <div class="row mx-auto">
+  {% if nameList == 'principale' %}
+    <h3 class="bg-success rounded text-bold p-3">Vous êtes bien inscrit à l'entainement.</h3>
+    {% else %}
+    <h3 class="bg-warning rounded text-bold p-3">Vous êtes {{userPlace}}e dans la liste {{nameList}}.</h3>
+      {% endif %}
   </div>
 </section>
 {% endif %}
