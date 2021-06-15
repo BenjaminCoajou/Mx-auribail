@@ -141,7 +141,7 @@ class HomeController extends AbstractController
             $subjet = "[Mx Park] - INSCRIPTION - Entrainement du ".$training->getTrainingDate()->format('d-m-Y');
             $msg = "Bonjour ".$user->getFirstname().",\n".
             "Vous êtes bien inscrit au prochain entrainement du ".$training->getTrainingDate()->format('d-m-Y').
-            "\nVeillez renseigner votre numéro de licence avant si ce n'est pas encore le cas, elle est necessaire a la participation.\n\n".
+            "\nVeillez renseigner votre numéro de licence si ce n'est pas encore le cas, elle est necessaire à la participation.\n\n".
             "Cordialement,\n".
             "MX Park - Auribail";
             $mailer->sendEmail($user, $subjet, $msg);
@@ -155,7 +155,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/unsub/{user}-{training}", name="home_unsub")
      */
-    public function unsubscription(EntityManagerInterface $em, Training $training, User $user)
+    public function unsubscription(Mailer $mailer, EntityManagerInterface $em, Training $training, User $user)
     {
         $repoUserTraining = $em->getRepository(UserTraining::class);
         $userTraining = $repoUserTraining->findOneBy(
@@ -163,6 +163,27 @@ class HomeController extends AbstractController
             'training' => $training
             ]
         );
+        $ut = $repoUserTraining->findBy([
+            'training' => $training
+        ],[
+            'dateRegistration' => 'ASC'
+        ]);
+
+        //si le nombre d'inscrit est supérieur au nombre de places (file d'attente)
+        if( count($ut) > $training->getSlot())
+        {
+            $userWaitingList = $ut[$training->getSlot()]->getUser();
+                //SI le prochain user dans la liste d'attente n'est pas l'user qui se desinscrit
+                if($user->getId() != $userWaitingList->getId()){
+                    $subjet = "[Mx Park] - INSCRIPTION - Entrainement du ".$training->getTrainingDate()->format('d-m-Y');
+                    $msg = "Bonjour ".$userWaitingList->getFirstname().",\n".
+                    "Votre postion dans la liste d'attente a évolué, vous êtes maintenant inscrit au prochain entrainement du ".$training->getTrainingDate()->format('d-m-Y').".".
+                    "\nVeillez renseigner votre numéro de licence si ce n'est pas encore le cas, elle est necessaire à la participation.\n\n".
+                    "Cordialement,\n".
+                    "MX Park - Auribail";
+                    $mailer->sendEmail($userWaitingList, $subjet, $msg);
+                }
+        }
         $em->remove($userTraining);
         $em->flush();
 
