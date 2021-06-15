@@ -46,7 +46,7 @@ function diaporama() {
         let image = document.getElementById('home');
         image.style.backgroundImage = "url(http://localhost/Mx-auribail/public/assets/img/motocross-"+i+".jpg)";
           i++;
-          if (i == 6) {
+          if (i == 7) {
             i = 1;
           }
     }, 120000);
