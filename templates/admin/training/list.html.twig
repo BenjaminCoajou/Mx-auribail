@@ -5,16 +5,16 @@
 
 {% block body %}
   <div class="container-xl">
-    <h2 class="my-3">Inscrits pour la session
-    
+    <h2 class="my-3">{{ list|length}} inscrits pour la session
       {% if training.adult == 1 %}
         adulte
       {% else %}
         enfant
       {% endif %}
       du
-      {{ training.trainingDate | date("d/m/Y") }}</h2>
-      <a class="btn btn-primary" href="{{ path('admin') }}">Retour</a>
+      {{ training.trainingDate | date("d/m/Y") }}
+    </h2>
+    <a class="btn btn-primary" href="{{ path('admin') }}">Retour</a>
     {% if list %}
     <a href="{{ path('admin_training_pdf', {'training': training.id}) }}" class="btn btn-success">
       <i class="fas fa-file-pdf"></i>
