@@ -407,7 +407,9 @@ color: #ff0000; }
  }
 
  .facebook {
-     font-size: 3rem;
+     border: 1px, solid, white;
+     border-radius: 5px;
+     font-size: 2rem;
  }
 
  /* Map */
@@ -415,5 +417,5 @@ color: #ff0000; }
  .map {
     height: 300px;
     width: 300px;
-    border-radius: 30px;
+    border-radius: 10px;
 }
