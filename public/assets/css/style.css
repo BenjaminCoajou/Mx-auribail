@@ -406,14 +406,29 @@ color: #ff0000; }
      background-color: #252525 !important;
  }
 
- .facebook {
-     border: 1px, solid, white;
-     border-radius: 5px;
-     font-size: 2rem;
+ .footer-links {
+    color: white!important;
+    font-size: 3rem;
+    display: flex;
+    justify-content: space-around;
+    
  }
 
- /* Map */
+ .footer-link-logo {
+     border: solid 2px white;
+     border-radius: 5px;
+     width: 20%;
+     text-align: center;
+ }
+ .footer-link-logo:hover {
+    border: solid 2px #f00;
+ }
 
+ .link-site {
+     color: white;
+ }
+
+<<<<<<< HEAD
  .map {
     height: 300px;
     width: 300px;
@@ -423,3 +438,8 @@ color: #ff0000; }
 .text-position-waitinglist{
     font-size: 0.5em;
 }
+=======
+ .link-site:hover {
+     color: #f00;
+ }
+>>>>>>> origin/benjamin
