@@ -1,45 +1,38 @@
-<body onload="initMap()">
-    <!-- Footer -->
-    <footer class="container-fluid text-white pt-5">
-        <div class="row py-5 align-items-center">
-            <!-- Info -->
-            <div class="offset-lg-2 col-md-12 col-lg-4 p-5">
-                <h6 class="text-uppercase fw-bold mb-4"> Contact</h6>
-                <p><i class="fas fa-home"></i> Chemin de petayre, 31190 Auribail</p>
-                <p><i class="fas fa-globe"></i><a href="http://www.auribailmotosport.com/">
-                    http://www.auribailmotosport.com/</a></p>
-                <p class="fas fa-envelope"> sylvain.assie@gmail.com </p>
-                <p><i class="fas fa-phone"></i> 06.88.93.48.15</p>
-                <p><a href="https://www.facebook.com/auribail.motosport" class="text-reset">
-                <i class="fab fa-facebook-f facebook"></i> </a></p>
-            </div>
-            <div class="col-md-12 col-lg-4 p-5">
-                <div id="map" class="map w-100">
-            </div>
-            
-            </div>
-            <script>
-                function initMap() 
-                {
-                    console.log('lol');
-                    var menuiserie = [43.352, +1.383];
-                        
-                    window.map = new L.map("map").setView(menuiserie, 12);
-                    L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
-                        maxZoom: 16,
-                        minZoom: 10
-                    }).addTo(map);
+<!-- Footer -->
+<footer class="container-fluid text-white ">
+  <div class="row align-items-center">
+    <!-- Info -->
+    <div class="col-4 mx-auto mt-5">
+      <h6 class="text-uppercase fw-bold mb-4">
+        Contact</h6>
+      <p>
+        <i class="fas fa-home"></i>
+        Chemin de petayre, 31190 Auribail</p>
+    
+        
+        <a href="http://www.auribailmotosport.com/" class="link-site" ><i class="fas fa-globe"></i>
+          http://www.auribailmotosport.com/</a>
 
-                    var marker = L.marker(menuiserie)
-                    .bindPopup('<h3>Menuiserie Quellard</h3> <p> 9 rue du Champ Guihore </p> <b> <p> 35320 CREVIN </p>')
-                    .addTo(map);
-                }
-            </script>
-            <!-- Maps -->
-        </div>
-        <!-- Copyright -->
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2021 Copyright
-        </div>
-        </footer>
-</body>
+      <p class="fas fa-envelope">
+        sylvain.assie@gmail.com
+      </p>
+      <p>
+        <i class="fas fa-phone"></i>
+        06.88.93.48.15</p>
+    </div>
+    <div class="col-4 footer-links mx-auto">
+      <a href="https://www.facebook.com/auribail.motosport" target="_blank" class="text-reset footer-link-logo">
+        <i class="fab fa-facebook-f facebook"></i>
+      </a>
+      <a class="text-reset footer-link-logo" href="https://www.google.fr/maps/place/Petayre,+31190+Auribail/@43.3392546,1.3556687,17z/data=!3m1!4b1!4m5!3m4!1s0x12aecff2c3b7ed1b:0x22ce15563329aece!8m2!3d43.3392507!4d1.3578574" target="_blank">
+        <i class="fas fa-map-marked-alt"></i>
+      </a>
+    </div>
+
+  </div>
+  <!-- Copyright -->
+  <div class="text-center" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2021 Copyright
+  </div>
+</div>
+</footer>
