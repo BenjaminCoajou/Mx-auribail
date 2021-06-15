@@ -19,7 +19,13 @@
 
                 <div class="card-body">
                     {% if trainingAdult %}
-                        <h5 class="card-title my-2">Prochaine session adulte le {{ trainingAdult.trainingDate | date('d/m/Y') }}</h5>                  
+                        <h5 class="card-title my-2 d-flex align-content-baseline">Prochaine session adulte le {{ trainingAdult.trainingDate | date('d/m/Y') }}
+                            {% if nameList == 'principale'and app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}
+                                <span class="badge badge-success ml-2">Inscrit</span> 
+                            {% elseif nameList == "d'attente" and app.user and trainingAdult and listIdAdult and app.user.id in listIdAdult %}       
+                                <span class="badge badge-warning  ml-2">File d'attente</span>
+                            {% endif %}
+                        </h5>                  
                         <p class="card-text">{{ trainingAdult.info }}</p>                      
                     {% else %}
                         <p>Pas d'entrainement de prévu pour le moment.</p>
@@ -51,62 +57,67 @@
                             <a href="#" class="btn btn-primary disabled">Inscription</a>
                         {% endif %}
                     </div>
-
                 </div>
             </div>
         </div>
 
         <div class="col-md-12 col-lg-6 mb-5">
-        <div class="card border-light h-100 training-home">
-            <div class="card-top">
-                    {% if nameList == 'principale'and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
-                        <div class="card-check">
-                        <i class="fas fa-check text-white"></i>
-                        </div>  
+            <div class="card border-light h-100 training-home">
+                <div class="card-top">
+                        {% if nameList == 'principale'and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
+                            <div class="card-check">
+                                <i class="fas fa-check text-white"></i>
+                            </div>  
                         {% elseif nameList == "d'attente" and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}       
                             <div class="card-wait">
-                        <i class="fas fa-stopwatch text-white"></i>
-                        <p class="text-white">Postion: {{userPlace}}e</p>
-                        </div> 
-                    {% endif %}
-            <img class="card-img-top" src="assets/img/moto2.jpg" alt="Session Enfant">
-            </div>
-            <div class="card-body">
-                {% if trainingChild %}
-                    <h5 class="card-title my-2">Prochaine session enfant le {{ trainingChild.trainingDate | date('d/m/Y') }}</h5>                  
-                    <p class="card-text">{{ trainingChild.info }}</p>                      
-                {% else %}
-                    <p>Pas d'entrainement de prévu pour le moment.</p>
-                {% endif %}
-                
-            </div>
-            <div>
-                <div>
+                                <i class="fas fa-stopwatch text-white"></i>
+                                <p class="text-white">Postion: {{userPlace}}e</p>
+                            </div> 
+                        {% endif %}
+                <img class="card-img-top" src="assets/img/moto2.jpg" alt="Session Enfant">
+                </div>
+                <div class="card-body">
                     {% if trainingChild %}
-                    <div class="progress mx-2">
-                        <div class="progress-bar" role="progressbar" style="width: {{ placeEnfant / trainingChild.slot * 100  }}%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingChild.slot }}>
-                            <strong class="justify-content-center d-flex position-absolute w-100 text-white" >{{ placeEnfant }} / {{trainingChild.slot}} places</strong>
+                        <h5 class="card-title my-2 d-flex align-content-baseline">Prochaine session enfant le {{ trainingChild.trainingDate | date('d/m/Y') }}
+                            {% if nameList == 'principale'and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
+                                <span class="badge badge-success ml-2">Inscrit</span>                        
+                            {% elseif nameList == "d'attente" and app.user and trainingChild and listIdChild and app.user.id in listIdChild %}       
+                                <span class="badge badge-warning  ml-2">File d'attente</span> 
+                            {% endif %}                   
+                        </h5>                  
+                        <p class="card-text">{{ trainingChild.info }}</p>                      
+                    {% else %}
+                        <p>Pas d'entrainement de prévu pour le moment.</p>
+                    {% endif %}
+                    
+                </div>
+                <div>
+                    <div>
+                        {% if trainingChild %}
+                        <div class="progress mx-2">
+                            <div class="progress-bar" role="progressbar" style="width: {{ placeEnfant / trainingChild.slot * 100  }}%" aria-valuenow="3" aria-valuemin="0" aria-valuemax={{ trainingChild.slot }}>
+                                <strong class="justify-content-center d-flex position-absolute w-100 text-white" >{{ placeEnfant }} / {{trainingChild.slot}} places</strong>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="text-right m-2">
+                            {% if app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
+                                <a href="{{ path('home_unsub', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
+                            {% elseif trainingChild 
+                            and app.user 
+                            and age < 18 %}
+                                {% if is_granted('ROLE_MEMBER') == false and date(trainingChild.openingRegistrationDate)|date_modify("+7 day") <= date('now') %}
+                                    <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                                {% elseif is_granted('ROLE_MEMBER') and date(trainingChild.openingRegistrationDate) <= date('now') %}
+                                    <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
+                                {% else %}
+                                    <a href="#" class="btn btn-primary disabled">Inscription</a>
+                                {% endif %} 
+                            {% else %}
+                                <a href="#" class="btn btn-primary disabled">Inscription</a> 
+                            {% endif %}
                         </div>
                     </div>
-                    {% endif %}
-                    <div class="text-right m-2">
-                        {% if app.user and trainingChild and listIdChild and app.user.id in listIdChild %}
-                            <a href="{{ path('home_unsub', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-danger">Se désinscrire</a>
-                        {% elseif trainingChild 
-                        and app.user 
-                        and age < 18 %}
-                            {% if is_granted('ROLE_MEMBER') == false and date(trainingChild.openingRegistrationDate)|date_modify("+7 day") <= date('now') %}
-                                <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
-                            {% elseif is_granted('ROLE_MEMBER') and date(trainingChild.openingRegistrationDate) <= date('now') %}
-                                <a href="{{ path('home_inscription', {'training': trainingChild.id, 'user': app.user.id}) }}" class="btn btn-primary">Inscription</a>
-                            {% else %}
-                                <a href="#" class="btn btn-primary disabled">Inscription</a>
-                            {% endif %} 
-                        {% else %}
-                            <a href="#" class="btn btn-primary disabled">Inscription</a> 
-                        {% endif %}
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
