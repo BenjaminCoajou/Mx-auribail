@@ -372,24 +372,6 @@ color: #ff0000; }
      margin-bottom: 1.5em;
  }
 
- /* Footer */
- footer {
-     background-color: #252525 !important;
- }
-
- .facebook {
-     border: 1px, solid, white;
-     border-radius: 5px;
-     font-size: 2rem;
- }
-
- /* Map */
-
- .map {
-    height: 300px;
-    width: 300px;
-    border-radius: 30px;
- }
  .card-top {
      position: relative;
      display: block;
@@ -418,4 +400,22 @@ color: #ff0000; }
     justify-content: center;
     align-items: center;
     font-size: 5rem;
+ }
+ /* Footer */
+ footer {
+     background-color: #252525 !important;
+ }
+
+ .facebook {
+     border: 1px, solid, white;
+     border-radius: 5px;
+     font-size: 2rem;
+ }
+
+ /* Map */
+
+ .map {
+    height: 300px;
+    width: 300px;
+    border-radius: 10px;
 }
